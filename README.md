@@ -1,6 +1,6 @@
-# wangunsari
+# Sistem Informasi Surat Menyurat Desa Wangunsari
 
-A new Flutter project.
+MBKM Universitas Sangga Buana YPKP Bandung 2022
 
 ## Getting Started
 
