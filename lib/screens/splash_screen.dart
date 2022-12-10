@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:wangunsari/services/user.dart';
 import 'package:wangunsari/theme.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -10,6 +11,22 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  void _loadUserInfo() async {
+    String token = await getToken();
+    if (token == '') {
+      // print('token not defined, redirect to login page');
+      context.goNamed('login');
+    } else {
+      context.goNamed('home');
+    }
+  }
+
+  @override
+  void initState() {
+    _loadUserInfo();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,12 +40,9 @@ class _SplashScreenState extends State<SplashScreen> {
                 const SizedBox(
                   height: 200,
                 ),
-                GestureDetector(
-                  onTap: () => context.goNamed('login'),
-                  child: Image.asset(
-                    'assets/images/logomail.png',
-                    width: 136,
-                  ),
+                Image.asset(
+                  'assets/images/logomail.png',
+                  width: 136,
                 ),
                 const SizedBox(
                   height: 10,
