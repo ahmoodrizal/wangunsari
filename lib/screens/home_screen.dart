@@ -14,14 +14,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  User? user;
+  UserData? user;
   bool loading = true;
 
   void getUser() async {
     ApiResponse response = await getUserDetail();
     if (response.error == null) {
       setState(() {
-        user = response.data as User;
+        user = response.data as UserData;
         loading = false;
       });
     } else if (response.error == unauthorized) {
@@ -61,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Selamat Datang,\n${user!.name}',
+                        'Selamat Datang,\n${user!.data!.user!.name}',
                         style: whiteTextStyle.copyWith(
                           fontSize: 22,
                           fontWeight: medium,
@@ -82,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: greyColor,
                       borderRadius: BorderRadius.circular(8),
                       image: DecorationImage(
-                        image: NetworkImage('${user!.profile}'),
+                        image: NetworkImage('${user!.data!.user!.profilePhotoUrl}'),
                         fit: BoxFit.cover,
                         alignment: Alignment.topLeft,
                       ),
@@ -216,7 +216,9 @@ class _HomeScreenState extends State<HomeScreen> {
             Expanded(
               flex: 1,
               child: GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  context.goNamed('surat-keterangan');
+                },
                 child: Container(
                   height: 185,
                   decoration: BoxDecoration(

@@ -4,6 +4,7 @@ import 'package:wangunsari/screens/home_screen.dart';
 import 'package:wangunsari/screens/login_screen.dart';
 import 'package:wangunsari/screens/profile_screen.dart';
 import 'package:wangunsari/screens/splash_screen.dart';
+import 'package:wangunsari/screens/surat_keterangan.dart';
 
 void main() {
   runApp(MyApp());
@@ -27,6 +28,11 @@ class MyApp extends StatelessWidget {
         name: 'home',
         builder: (context, state) => const HomeScreen(),
         routes: [
+          GoRoute(
+            path: 'surat-keterangan',
+            name: 'surat-keterangan',
+            builder: (context, state) => const SuratKeterangan(),
+          ),
           GoRoute(
             path: 'profile',
             name: 'profile',

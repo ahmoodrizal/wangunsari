@@ -17,10 +17,11 @@ Future<ApiResponse> login(String nik, String password) async {
         'password': password,
       },
     );
+    // print(response.statusCode);
 
     switch (response.statusCode) {
       case 200:
-        apiResponse.data = User.fromJson(jsonDecode(response.body));
+        apiResponse.data = UserData.fromJson(jsonDecode(response.body));
         break;
       case 422:
         final errors = jsonDecode(response.body)['errors'];
@@ -45,7 +46,7 @@ Future<ApiResponse> getUserDetail() async {
   ApiResponse apiResponse = ApiResponse();
   try {
     String token = await getToken();
-    print(token);
+    // print(token);
     final response = await http.get(
       Uri.parse(userDetailUrl),
       headers: {
@@ -56,7 +57,7 @@ Future<ApiResponse> getUserDetail() async {
 
     switch (response.statusCode) {
       case 200:
-        apiResponse.data = User.fromJson(jsonDecode(response.body));
+        apiResponse.data = UserData.fromJson(jsonDecode(response.body));
         break;
       case 401:
         apiResponse.error = unauthorized;
@@ -67,7 +68,6 @@ Future<ApiResponse> getUserDetail() async {
     }
   } catch (e) {
     apiResponse.error = e.toString();
-    print(e.toString());
   }
   return apiResponse;
 }
