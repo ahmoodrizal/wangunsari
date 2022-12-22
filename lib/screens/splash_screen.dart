@@ -23,8 +23,10 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
-    _loadUserInfo();
-    super.initState();
+    Future.delayed(const Duration(seconds: 3), () {
+      _loadUserInfo();
+      super.initState();
+    });
   }
 
   @override

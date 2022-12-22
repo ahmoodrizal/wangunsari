@@ -85,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   TextFormField(
                     keyboardType: TextInputType.number,
                     controller: nikField,
-                    validator: (value) => value!.isEmpty ? 'Invalid Email Address' : null,
+                    validator: (value) => value!.isEmpty ? 'NIK tidak boleh kosong' : null,
                     style: darkTextStyle.copyWith(
                       fontSize: 16,
                     ),

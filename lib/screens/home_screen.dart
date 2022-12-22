@@ -138,7 +138,9 @@ class _HomeScreenState extends State<HomeScreen> {
             Expanded(
               flex: 1,
               child: GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  context.goNamed('surat-kelahiran');
+                },
                 child: Container(
                   height: 185,
                   decoration: BoxDecoration(
@@ -175,7 +177,9 @@ class _HomeScreenState extends State<HomeScreen> {
             Expanded(
               flex: 1,
               child: GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  context.goNamed('surat-domisili');
+                },
                 child: Container(
                   height: 185,
                   decoration: BoxDecoration(
@@ -255,7 +259,9 @@ class _HomeScreenState extends State<HomeScreen> {
             Expanded(
               flex: 1,
               child: GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  context.goNamed('surat-keluarga');
+                },
                 child: Container(
                   height: 185,
                   decoration: BoxDecoration(
@@ -296,7 +302,9 @@ class _HomeScreenState extends State<HomeScreen> {
             Expanded(
               flex: 1,
               child: GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  context.goNamed('surat-pindah');
+                },
                 child: Container(
                   height: 185,
                   decoration: BoxDecoration(
@@ -333,7 +341,9 @@ class _HomeScreenState extends State<HomeScreen> {
             Expanded(
               flex: 1,
               child: GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  context.goNamed('surat-nikah');
+                },
                 child: Container(
                   height: 185,
                   decoration: BoxDecoration(

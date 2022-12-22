@@ -4,7 +4,12 @@ import 'package:wangunsari/screens/home_screen.dart';
 import 'package:wangunsari/screens/login_screen.dart';
 import 'package:wangunsari/screens/profile_screen.dart';
 import 'package:wangunsari/screens/splash_screen.dart';
+import 'package:wangunsari/screens/surat_domisili.dart';
+import 'package:wangunsari/screens/surat_kelahiran.dart';
+import 'package:wangunsari/screens/surat_keluarga.dart';
 import 'package:wangunsari/screens/surat_keterangan.dart';
+import 'package:wangunsari/screens/surat_nikah.dart';
+import 'package:wangunsari/screens/surat_pindah.dart';
 
 void main() {
   runApp(MyApp());
@@ -32,6 +37,31 @@ class MyApp extends StatelessWidget {
             path: 'surat-keterangan',
             name: 'surat-keterangan',
             builder: (context, state) => const SuratKeterangan(),
+          ),
+          GoRoute(
+            path: 'surat-domisili',
+            name: 'surat-domisili',
+            builder: (context, state) => const SuratDomisili(),
+          ),
+          GoRoute(
+            path: 'surat-kelahiran',
+            name: 'surat-kelahiran',
+            builder: (context, state) => const SuratKelahiran(),
+          ),
+          GoRoute(
+            path: 'surat-keluarga',
+            name: 'surat-keluarga',
+            builder: (context, state) => const SuratKeluarga(),
+          ),
+          GoRoute(
+            path: 'surat-pindah',
+            name: 'surat-pindah',
+            builder: (context, state) => const SuratPindah(),
+          ),
+          GoRoute(
+            path: 'surat-nikah',
+            name: 'surat-nikah',
+            builder: (context, state) => const SuratNikah(),
           ),
           GoRoute(
             path: 'profile',
