@@ -94,19 +94,22 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(
               height: defaultmargin,
             ),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-              width: 165,
-              decoration: BoxDecoration(
-                color: whiteColor,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Center(
-                child: Text(
-                  'Cek Status Surat',
-                  style: darkTextStyle.copyWith(
-                    fontWeight: medium,
-                    fontSize: 16,
+            GestureDetector(
+              onTap: () => context.goNamed('status'),
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                width: 165,
+                decoration: BoxDecoration(
+                  color: whiteColor,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Center(
+                  child: Text(
+                    'Cek Status Surat',
+                    style: darkTextStyle.copyWith(
+                      fontWeight: medium,
+                      fontSize: 16,
+                    ),
                   ),
                 ),
               ),

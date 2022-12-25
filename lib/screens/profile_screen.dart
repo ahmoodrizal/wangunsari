@@ -17,14 +17,19 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   UserData? user;
   bool loading = true;
+  late List<Roles> roles = [];
 
   void getUser() async {
     ApiResponse response = await getUserDetail();
     if (response.error == null) {
       setState(() {
         user = response.data as UserData;
+        List userRoles = user!.data!.user!.roles!;
+        for (var element in userRoles) {
+          roles.add(element);
+        }
         loading = false;
-        // print(user);
+        // print(roles[0].name);
       });
     } else if (response.error == unauthorized) {
       logout().then((value) => context.goNamed('login'));
@@ -102,12 +107,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 width: 14,
                               ),
                               Expanded(
-                                child: Text(
-                                  '${user!.data!.user!.name}',
-                                  style: darkTextStyle.copyWith(
-                                    fontSize: 18,
-                                    fontWeight: medium,
-                                  ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      '${user!.data!.user!.name}',
+                                      style: darkTextStyle.copyWith(
+                                        fontSize: 18,
+                                        fontWeight: medium,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      '${roles[0].name}',
+                                      style: darkTextStyle.copyWith(
+                                        fontSize: 14,
+                                        fontWeight: medium,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               )
                             ],
@@ -127,6 +147,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 const SizedBox(
                   height: 40,
                 ),
+                roles[0].name == 'Administrator'
+                    ? GestureDetector(
+                        onTap: () {
+                          print('Ke Halaman Pengajuan Surat');
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Cek Pengajuan Surat',
+                              style: darkTextStyle.copyWith(
+                                fontSize: 16,
+                              ),
+                            ),
+                            const Icon(
+                              Icons.menu_rounded,
+                              size: 26,
+                            ),
+                          ],
+                        ),
+                      )
+                    : const SizedBox(),
+                roles[0].name == 'Administrator'
+                    ? const SizedBox(
+                        height: 20,
+                      )
+                    : const SizedBox(),
                 GestureDetector(
                   onTap: () {
                     showDialog(

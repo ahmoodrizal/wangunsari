@@ -4,6 +4,7 @@ import 'package:wangunsari/screens/home_screen.dart';
 import 'package:wangunsari/screens/login_screen.dart';
 import 'package:wangunsari/screens/profile_screen.dart';
 import 'package:wangunsari/screens/splash_screen.dart';
+import 'package:wangunsari/screens/status_surat.dart';
 import 'package:wangunsari/screens/surat_domisili.dart';
 import 'package:wangunsari/screens/surat_kelahiran.dart';
 import 'package:wangunsari/screens/surat_keluarga.dart';
@@ -67,6 +68,11 @@ class MyApp extends StatelessWidget {
             path: 'profile',
             name: 'profile',
             builder: (context, state) => const ProfileScreen(),
+          ),
+          GoRoute(
+            path: 'status',
+            name: 'status',
+            builder: (context, state) => const StatusSurat(),
           ),
         ],
       ),
