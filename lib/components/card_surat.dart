@@ -5,22 +5,24 @@ class CardSurat extends StatelessWidget {
   final String title;
   final String date;
   final String status;
+  final String resi;
 
   const CardSurat({
     super.key,
     required this.title,
     required this.date,
     required this.status,
+    required this.resi,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 20),
+      margin: EdgeInsets.only(bottom: defaultmargin),
       padding: const EdgeInsets.all(16),
       width: double.infinity,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(6),
         color: const Color.fromARGB(255, 225, 216, 241),
       ),
       child: Column(
@@ -36,7 +38,16 @@ class CardSurat extends StatelessWidget {
             height: 6,
           ),
           Text(
-            'Tanggal Pengajuan $date',
+            date,
+            style: darkTextStyle.copyWith(
+              fontSize: 14,
+            ),
+          ),
+          const SizedBox(
+            height: 4,
+          ),
+          Text(
+            'No Resi - $resi',
             style: darkTextStyle.copyWith(
               fontSize: 14,
             ),
@@ -48,9 +59,10 @@ class CardSurat extends StatelessWidget {
             status,
             textAlign: TextAlign.justify,
             style: darkTextStyle.copyWith(
+              fontWeight: semibold,
               fontSize: 14,
               fontStyle: FontStyle.italic,
-              color: const Color.fromARGB(255, 231, 101, 101),
+              color: const Color.fromARGB(255, 216, 88, 88),
             ),
           ),
         ],

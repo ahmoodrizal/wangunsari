@@ -15,7 +15,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  UserData? user;
+  UserService? user;
   bool loading = true;
   late List<Roles> roles = [];
 
@@ -23,7 +23,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     ApiResponse response = await getUserDetail();
     if (response.error == null) {
       setState(() {
-        user = response.data as UserData;
+        user = response.data as UserService;
         List userRoles = user!.data!.user!.roles!;
         for (var element in userRoles) {
           roles.add(element);

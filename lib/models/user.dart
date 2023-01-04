@@ -1,9 +1,9 @@
-class UserData {
+class UserService {
   Data? data;
 
-  UserData({this.data});
+  UserService({this.data});
 
-  UserData.fromJson(Map<String, dynamic> json) {
+  UserService.fromJson(Map<String, dynamic> json) {
     data = json['data'] != null ? new Data.fromJson(json['data']) : null;
   }
 
@@ -213,6 +213,8 @@ class Penduduk {
   Null? updatedBy;
   String? createdBy;
   String? tanggalLahirText;
+  Rt? rt;
+  Rw? rw;
 
   Penduduk(
       {this.id,
@@ -241,7 +243,9 @@ class Penduduk {
       this.updatedAt,
       this.updatedBy,
       this.createdBy,
-      this.tanggalLahirText});
+      this.tanggalLahirText,
+      this.rt,
+      this.rw});
 
   Penduduk.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -271,6 +275,8 @@ class Penduduk {
     updatedBy = json['updated_by'];
     createdBy = json['created_by'];
     tanggalLahirText = json['tanggal_lahir_text'];
+    rt = json['rt'] != null ? new Rt.fromJson(json['rt']) : null;
+    rw = json['rw'] != null ? new Rw.fromJson(json['rw']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -302,6 +308,80 @@ class Penduduk {
     data['updated_by'] = this.updatedBy;
     data['created_by'] = this.createdBy;
     data['tanggal_lahir_text'] = this.tanggalLahirText;
+    if (this.rt != null) {
+      data['rt'] = this.rt!.toJson();
+    }
+    if (this.rw != null) {
+      data['rw'] = this.rw!.toJson();
+    }
+    return data;
+  }
+}
+
+class Rt {
+  int? id;
+  String? nomor;
+  String? namaDaerah;
+  String? rwId;
+  String? createdAt;
+  String? updatedAt;
+  Null? updatedBy;
+  String? createdBy;
+
+  Rt({this.id, this.nomor, this.namaDaerah, this.rwId, this.createdAt, this.updatedAt, this.updatedBy, this.createdBy});
+
+  Rt.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    nomor = json['nomor'];
+    namaDaerah = json['nama_daerah'];
+    rwId = json['rw_id'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+    updatedBy = json['updated_by'];
+    createdBy = json['created_by'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['nomor'] = this.nomor;
+    data['nama_daerah'] = this.namaDaerah;
+    data['rw_id'] = this.rwId;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
+    data['updated_by'] = this.updatedBy;
+    data['created_by'] = this.createdBy;
+    return data;
+  }
+}
+
+class Rw {
+  int? id;
+  String? nomor;
+  String? createdAt;
+  String? updatedAt;
+  Null? updatedBy;
+  String? createdBy;
+
+  Rw({this.id, this.nomor, this.createdAt, this.updatedAt, this.updatedBy, this.createdBy});
+
+  Rw.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    nomor = json['nomor'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+    updatedBy = json['updated_by'];
+    createdBy = json['created_by'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['nomor'] = this.nomor;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
+    data['updated_by'] = this.updatedBy;
+    data['created_by'] = this.createdBy;
     return data;
   }
 }

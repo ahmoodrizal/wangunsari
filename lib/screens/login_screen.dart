@@ -24,7 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
     ApiResponse response = await login(nikField.text, passwordField.text);
     // success login and fetching API
     if (response.error == null) {
-      _saveTokenAndRedirectToHome(response.data as UserData);
+      _saveTokenAndRedirectToHome(response.data as UserService);
     } else {
       // error
       setState(() {
@@ -41,7 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  void _saveTokenAndRedirectToHome(UserData user) async {
+  void _saveTokenAndRedirectToHome(UserService user) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     await pref.setString('token', user.data!.accessToken ?? '');
     await pref.setInt('user_id', user.data!.user!.id ?? 0);

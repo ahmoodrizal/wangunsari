@@ -21,7 +21,7 @@ Future<ApiResponse> login(String nik, String password) async {
 
     switch (response.statusCode) {
       case 200:
-        apiResponse.data = UserData.fromJson(jsonDecode(response.body));
+        apiResponse.data = UserService.fromJson(jsonDecode(response.body));
         break;
       case 422:
         final errors = jsonDecode(response.body)['errors'];
@@ -29,6 +29,9 @@ Future<ApiResponse> login(String nik, String password) async {
         break;
       case 403:
         apiResponse.error = jsonDecode(response.body)['message'];
+        break;
+      case 500:
+        apiResponse.error = jsonDecode(response.body)['meta']['message'];
         break;
       default:
         apiResponse.error = somethingWentWrong;
@@ -57,7 +60,7 @@ Future<ApiResponse> getUserDetail() async {
 
     switch (response.statusCode) {
       case 200:
-        apiResponse.data = UserData.fromJson(jsonDecode(response.body));
+        apiResponse.data = UserService.fromJson(jsonDecode(response.body));
         break;
       case 401:
         apiResponse.error = unauthorized;

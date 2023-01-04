@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:wangunsari/models/components/card_surat.dart';
+import 'package:go_router/go_router.dart';
+import 'package:wangunsari/components/card_surat.dart';
+import 'package:wangunsari/models/api_response.dart';
+import 'package:wangunsari/models/surat.dart';
+import 'package:wangunsari/services/config.dart';
+import 'package:wangunsari/services/mail.dart';
+import 'package:wangunsari/services/user.dart';
 import 'package:wangunsari/theme.dart';
 
 class StatusSurat extends StatefulWidget {
@@ -10,6 +16,38 @@ class StatusSurat extends StatefulWidget {
 }
 
 class _StatusSuratState extends State<StatusSurat> {
+  List<dynamic> _getMails = [];
+  bool _loading = true;
+
+  // fetch mails
+  Future<void> fetchMails() async {
+    ApiResponse response = await getMails();
+
+    if (response.error == null) {
+      setState(() {
+        _getMails = response.data as List<dynamic>;
+        _loading = _loading ? !_loading : _loading;
+      });
+    } else if (response.error == unauthorized) {
+      logout().then((value) => context.goNamed('login'));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            '${response.error}',
+            style: whiteTextStyle,
+          ),
+        ),
+      );
+    }
+  }
+
+  @override
+  void initState() {
+    fetchMails();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,28 +63,25 @@ class _StatusSuratState extends State<StatusSurat> {
         centerTitle: true,
         elevation: 0,
       ),
-      body: Padding(
-        padding: EdgeInsets.all(defaultmargin),
-        child: ListView(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                CardSurat(
-                  title: 'Surat Keterangan',
-                  date: '10 Desember 2022',
-                  status: 'SEDANG DIPROSES - DISETUJUI OLEH RT SETEMPAT',
-                ),
-                CardSurat(
-                  title: 'Surat Keterangan Domisili',
-                  date: '13 Desember 2022',
-                  status: 'SEDANG DIPROSES - DISETUJUI OLEH KELURAHAN SILAHKAN AMBIL DI KANTOR DESA',
-                ),
-              ],
+      body: _loading
+          ? Center(
+              child: CircularProgressIndicator(
+                color: primaryColor,
+              ),
             )
-          ],
-        ),
-      ),
+          : ListView.builder(
+              padding: EdgeInsets.all(defaultmargin),
+              itemCount: _getMails.length,
+              itemBuilder: (context, index) {
+                Surats surat = _getMails[index];
+                return CardSurat(
+                  title: surat.jenis!,
+                  date: surat.createdStr!,
+                  status: '${surat.trackingStatus} - ${surat.trackingKeterangan}',
+                  resi: surat.noResi!,
+                );
+              },
+            ),
     );
   }
 }

@@ -14,14 +14,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  UserData? user;
+  UserService? user;
   bool loading = true;
 
   void getUser() async {
     ApiResponse response = await getUserDetail();
     if (response.error == null) {
       setState(() {
-        user = response.data as UserData;
+        user = response.data as UserService;
         loading = false;
       });
     } else if (response.error == unauthorized) {
@@ -142,7 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
               flex: 1,
               child: GestureDetector(
                 onTap: () {
-                  context.goNamed('surat-kelahiran');
+                  // context.goNamed('surat-kelahiran');
                 },
                 child: Container(
                   height: 185,
@@ -224,7 +224,7 @@ class _HomeScreenState extends State<HomeScreen> {
               flex: 1,
               child: GestureDetector(
                 onTap: () {
-                  context.goNamed('surat-keterangan');
+                  // context.goNamed('surat-keterangan');
                 },
                 child: Container(
                   height: 185,
@@ -263,7 +263,7 @@ class _HomeScreenState extends State<HomeScreen> {
               flex: 1,
               child: GestureDetector(
                 onTap: () {
-                  context.goNamed('surat-keluarga');
+                  // context.goNamed('surat-keluarga');
                 },
                 child: Container(
                   height: 185,
@@ -306,7 +306,7 @@ class _HomeScreenState extends State<HomeScreen> {
               flex: 1,
               child: GestureDetector(
                 onTap: () {
-                  context.goNamed('surat-pindah');
+                  // context.goNamed('surat-pindah');
                 },
                 child: Container(
                   height: 185,
@@ -345,7 +345,7 @@ class _HomeScreenState extends State<HomeScreen> {
               flex: 1,
               child: GestureDetector(
                 onTap: () {
-                  context.goNamed('surat-nikah');
+                  // context.goNamed('surat-nikah');
                 },
                 child: Container(
                   height: 185,

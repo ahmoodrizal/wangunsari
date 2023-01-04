@@ -14,7 +14,7 @@ class SuratKeterangan extends StatefulWidget {
 }
 
 class _SuratKeteranganState extends State<SuratKeterangan> {
-  UserData? user;
+  UserService? user;
   bool loading = true;
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
   TextEditingController nikField = TextEditingController();
@@ -36,7 +36,7 @@ class _SuratKeteranganState extends State<SuratKeterangan> {
     ApiResponse response = await getUserDetail();
     if (response.error == null) {
       setState(() {
-        user = response.data as UserData;
+        user = response.data as UserService;
         loading = false;
         // print(user);
         nikField.text = user!.data!.user!.penduduk!.nik ?? '';
