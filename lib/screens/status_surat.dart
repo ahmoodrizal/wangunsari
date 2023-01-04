@@ -69,19 +69,28 @@ class _StatusSuratState extends State<StatusSurat> {
                 color: primaryColor,
               ),
             )
-          : ListView.builder(
-              padding: EdgeInsets.all(defaultmargin),
-              itemCount: _getMails.length,
-              itemBuilder: (context, index) {
-                Surats surat = _getMails[index];
-                return CardSurat(
-                  title: surat.jenis!,
-                  date: surat.createdStr!,
-                  status: '${surat.trackingStatus} - ${surat.trackingKeterangan}',
-                  resi: surat.noResi!,
-                );
-              },
-            ),
+          : _getMails.isNotEmpty
+              ? ListView.builder(
+                  padding: EdgeInsets.all(defaultmargin),
+                  itemCount: _getMails.length,
+                  itemBuilder: (context, index) {
+                    Surats surat = _getMails[index];
+                    return CardSurat(
+                      title: surat.jenis!,
+                      date: surat.createdStr!,
+                      status: surat.status! == 'DIBATALKAN'
+                          ? '${surat.trackingStatus} - ${surat.alasanDibatalkan}'
+                          : '${surat.trackingStatus} - ${surat.trackingKeterangan}',
+                      resi: surat.noResi!,
+                    );
+                  },
+                )
+              : Center(
+                  child: Text(
+                    'Anda belum melakukan pengajuan surat',
+                    style: darkTextStyle,
+                  ),
+                ),
     );
   }
 }

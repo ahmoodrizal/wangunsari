@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wangunsari/models/api_response.dart';
 import 'package:wangunsari/models/user.dart';
 import 'package:wangunsari/services/config.dart';
+import 'package:wangunsari/services/mail.dart';
 import 'package:wangunsari/services/user.dart';
 import 'package:wangunsari/theme.dart';
 import 'package:go_router/go_router.dart';
@@ -16,6 +17,7 @@ class SuratDomisili extends StatefulWidget {
 class _SuratDomisiliState extends State<SuratDomisili> {
   UserService? user;
   bool loading = true;
+  bool _submitLoading = false;
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
   TextEditingController nikField = TextEditingController();
   TextEditingController nameField = TextEditingController();
@@ -68,6 +70,60 @@ class _SuratDomisiliState extends State<SuratDomisili> {
           content: Text('${response.error}'),
         ),
       );
+    }
+  }
+
+  void _submitMails() async {
+    ApiResponse response = await submitDomisiliMail(
+      rtField.text,
+      rwField.text,
+      nikField.text,
+      nameField.text,
+      tempatLahirField.text,
+      tanggalLahirField.text,
+      jenisKelaminField.text,
+      kewarganegaraanField.text,
+      negaraField.text,
+      agamaField.text,
+      statusKawinField.text,
+      pendidikanField.text,
+      pekerjaanField.text,
+      alamatField.text,
+      alamatAsalField.text,
+      tinggalSejakField.text,
+    );
+    if (response.error == null) {
+      // Navigator.of(context).pop();
+      showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(
+            'Pengajuan Surat Berhasil',
+            style: darkTextStyle,
+          ),
+          actions: [
+            TextButton(
+              onPressed: (() => context.goNamed('home')),
+              child: Text('Ok', style: darkTextStyle),
+            ),
+          ],
+        ),
+      );
+    } else if (response.error == unauthorized) {
+      logout().then((value) => context.goNamed('login'));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            '${response.error}',
+            style: whiteTextStyle,
+          ),
+        ),
+      );
+      setState(() {
+        _submitLoading = !_submitLoading;
+      });
     }
   }
 
@@ -582,22 +638,7 @@ class _SuratDomisiliState extends State<SuratDomisili> {
                                   ),
                                   TextButton(
                                     onPressed: () {
-                                      showDialog(
-                                        barrierDismissible: false,
-                                        context: context,
-                                        builder: (context) => AlertDialog(
-                                          title: Text(
-                                            'Pengajuan Surat Berhasil',
-                                            style: darkTextStyle,
-                                          ),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: (() => context.goNamed('home')),
-                                              child: Text('Ok', style: darkTextStyle),
-                                            ),
-                                          ],
-                                        ),
-                                      );
+                                      _submitMails();
                                     },
                                     child: Text(
                                       'Ajukan',

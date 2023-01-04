@@ -43,17 +43,17 @@ class Data {
 class User {
   int? id;
   String? name;
-  Null? email;
+  String? email;
   String? nik;
-  Null? emailVerifiedAt;
-  Null? twoFactorConfirmedAt;
-  Null? currentTeamId;
-  Null? profilePhotoPath;
+  String? emailVerifiedAt;
+  String? twoFactorConfirmedAt;
+  String? currentTeamId;
+  String? profilePhotoPath;
   String? active;
   String? createdAt;
   String? updatedAt;
   String? pendudukId;
-  Null? updatedBy;
+  String? updatedBy;
   String? createdBy;
   String? profilePhotoUrl;
   List<Roles>? roles;
