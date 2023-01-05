@@ -224,7 +224,7 @@ class _HomeScreenState extends State<HomeScreen> {
               flex: 1,
               child: GestureDetector(
                 onTap: () {
-                  // context.goNamed('surat-keterangan');
+                  context.goNamed('surat-keterangan');
                 },
                 child: Container(
                   height: 185,

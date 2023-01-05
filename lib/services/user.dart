@@ -38,7 +38,7 @@ Future<ApiResponse> login(String nik, String password) async {
         break;
     }
   } catch (e) {
-    apiResponse.error = 'Gagal di user service login';
+    apiResponse.error = 'Error - User Service login';
   }
 
   return apiResponse;
@@ -66,7 +66,7 @@ Future<ApiResponse> getUserDetail() async {
         apiResponse.error = unauthorized;
         break;
       default:
-        apiResponse.error = 'Lah Kok Gini';
+        apiResponse.error = 'Error - User Details';
         break;
     }
   } catch (e) {

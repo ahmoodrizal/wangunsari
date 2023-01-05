@@ -1,7 +1,9 @@
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:wangunsari/models/api_response.dart';
 import 'package:wangunsari/models/user.dart';
 import 'package:wangunsari/services/config.dart';
+import 'package:wangunsari/services/mail.dart';
 import 'package:wangunsari/services/user.dart';
 import 'package:wangunsari/theme.dart';
 import 'package:go_router/go_router.dart';
@@ -16,22 +18,27 @@ class SuratKeterangan extends StatefulWidget {
 class _SuratKeteranganState extends State<SuratKeterangan> {
   UserService? user;
   bool loading = true;
+  bool _submitLoading = false;
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
   TextEditingController nikField = TextEditingController();
   TextEditingController nameField = TextEditingController();
   TextEditingController tempatLahirField = TextEditingController();
   TextEditingController tanggalLahirField = TextEditingController();
+  TextEditingController tanggalLahirTextField = TextEditingController();
   TextEditingController jenisKelaminField = TextEditingController();
   TextEditingController kewarganegaraanField = TextEditingController();
+  TextEditingController negaraField = TextEditingController();
   TextEditingController agamaField = TextEditingController();
   TextEditingController statusKawinField = TextEditingController();
   TextEditingController pendidikanField = TextEditingController();
   TextEditingController jenisKtpField = TextEditingController();
   TextEditingController pekerjaanField = TextEditingController();
-  TextEditingController kampungField = TextEditingController();
+  TextEditingController alamatField = TextEditingController();
+  TextEditingController alamatAsalField = TextEditingController();
+  TextEditingController tinggalSejakField = TextEditingController();
   TextEditingController rwField = TextEditingController();
   TextEditingController rtField = TextEditingController();
-
+  TextEditingController jenisSuratField = TextEditingController();
   void getUser() async {
     ApiResponse response = await getUserDetail();
     if (response.error == null) {
@@ -42,17 +49,19 @@ class _SuratKeteranganState extends State<SuratKeterangan> {
         nikField.text = user!.data!.user!.penduduk!.nik ?? '';
         nameField.text = user!.data!.user!.penduduk!.nama ?? '';
         tempatLahirField.text = user!.data!.user!.penduduk!.tempatLahir ?? '';
-        tanggalLahirField.text = user!.data!.user!.penduduk!.tanggalLahirText ?? '';
+        tanggalLahirField.text = user!.data!.user!.penduduk!.tanggalLahir ?? '';
+        tanggalLahirTextField.text = user!.data!.user!.penduduk!.tanggalLahirText ?? '';
         jenisKelaminField.text = user!.data!.user!.penduduk!.jenisKelamin ?? '';
         kewarganegaraanField.text = user!.data!.user!.penduduk!.wargaNegara ?? '';
+        negaraField.text = user!.data!.user!.penduduk!.negaraNama ?? '';
         agamaField.text = user!.data!.user!.penduduk!.agama ?? '';
         statusKawinField.text = user!.data!.user!.penduduk!.statusKawin ?? '';
         pendidikanField.text = user!.data!.user!.penduduk!.pendidikan ?? '';
         jenisKtpField.text = user!.data!.user!.penduduk!.kitasKitap ?? '';
         pekerjaanField.text = user!.data!.user!.penduduk!.pekerjaan ?? '';
-        kampungField.text = user!.data!.user!.penduduk!.alamat ?? '';
-        // rwField.text = user!.data!.user!.penduduk!.nik ?? '';
-        rtField.text = user!.data!.user!.penduduk!.rtId ?? '';
+        alamatField.text = user!.data!.user!.penduduk!.alamat!.replaceAll("\n", " ");
+        rwField.text = user!.data!.user!.penduduk!.rw!.nomor ?? '';
+        rtField.text = user!.data!.user!.penduduk!.rt!.nomor ?? '';
       });
     } else if (response.error == unauthorized) {
       logout().then((value) => context.goNamed('login'));
@@ -62,6 +71,58 @@ class _SuratKeteranganState extends State<SuratKeterangan> {
           content: Text('${response.error}'),
         ),
       );
+    }
+  }
+
+  void _submitMails() async {
+    ApiResponse response = await submitKeteranganMail(
+        rtField.text,
+        rwField.text,
+        nikField.text,
+        nameField.text,
+        tempatLahirField.text,
+        tanggalLahirField.text,
+        jenisKelaminField.text,
+        kewarganegaraanField.text,
+        negaraField.text,
+        agamaField.text,
+        statusKawinField.text,
+        pendidikanField.text,
+        pekerjaanField.text,
+        alamatField.text,
+        jenisSuratField.text);
+    if (response.error == null) {
+      // Navigator.of(context).pop();
+      showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(
+            'Pengajuan Surat Berhasil',
+            style: darkTextStyle,
+          ),
+          actions: [
+            TextButton(
+              onPressed: (() => context.goNamed('home')),
+              child: Text('Ok', style: darkTextStyle),
+            ),
+          ],
+        ),
+      );
+    } else if (response.error == unauthorized) {
+      logout().then((value) => context.goNamed('login'));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            '${response.error}',
+            style: whiteTextStyle,
+          ),
+        ),
+      );
+      setState(() {
+        _submitLoading = !_submitLoading;
+      });
     }
   }
 
@@ -136,6 +197,7 @@ class _SuratKeteranganState extends State<SuratKeterangan> {
                         height: 10,
                       ),
                       TextFormField(
+                        readOnly: nikField.value == '' ? false : true,
                         controller: nikField,
                         validator: (value) => value!.isEmpty ? 'nik tidak boleh kosong' : null,
                         style: darkTextStyle.copyWith(
@@ -161,6 +223,7 @@ class _SuratKeteranganState extends State<SuratKeterangan> {
                         height: 15,
                       ),
                       TextFormField(
+                        readOnly: nameField.value == '' ? false : true,
                         controller: nameField,
                         validator: (value) => value!.isEmpty ? 'nama tidak boleh kosong' : null,
                         style: darkTextStyle.copyWith(
@@ -185,6 +248,7 @@ class _SuratKeteranganState extends State<SuratKeterangan> {
                         height: 15,
                       ),
                       TextFormField(
+                        readOnly: tempatLahirField.value == '' ? false : true,
                         controller: tempatLahirField,
                         validator: (value) => value!.isEmpty ? 'tempat lahir tidak boleh kosong' : null,
                         style: darkTextStyle.copyWith(
@@ -209,6 +273,7 @@ class _SuratKeteranganState extends State<SuratKeterangan> {
                         height: 15,
                       ),
                       TextFormField(
+                        readOnly: tanggalLahirField.value == '' ? false : true,
                         controller: tanggalLahirField,
                         validator: (value) => value!.isEmpty ? 'tanggal lahir tidak boleh kosong' : null,
                         style: darkTextStyle.copyWith(
@@ -233,6 +298,7 @@ class _SuratKeteranganState extends State<SuratKeterangan> {
                         height: 15,
                       ),
                       TextFormField(
+                        readOnly: jenisKelaminField.value == '' ? false : true,
                         controller: jenisKelaminField,
                         validator: (value) => value!.isEmpty ? 'jenis kelamin tidak boleh kosong' : null,
                         style: darkTextStyle.copyWith(
@@ -257,6 +323,7 @@ class _SuratKeteranganState extends State<SuratKeterangan> {
                         height: 15,
                       ),
                       TextFormField(
+                        readOnly: kewarganegaraanField.value == '' ? false : true,
                         controller: kewarganegaraanField,
                         validator: (value) => value!.isEmpty ? 'kewarganegaraan tidak boleh kosong' : null,
                         style: darkTextStyle.copyWith(
@@ -281,6 +348,7 @@ class _SuratKeteranganState extends State<SuratKeterangan> {
                         height: 15,
                       ),
                       TextFormField(
+                        readOnly: agamaField.value == '' ? false : true,
                         controller: agamaField,
                         validator: (value) => value!.isEmpty ? 'agama tidak boleh kosong' : null,
                         style: darkTextStyle.copyWith(
@@ -305,6 +373,7 @@ class _SuratKeteranganState extends State<SuratKeterangan> {
                         height: 15,
                       ),
                       TextFormField(
+                        readOnly: statusKawinField.value == '' ? false : true,
                         controller: statusKawinField,
                         validator: (value) => value!.isEmpty ? 'status perkawinan tidak boleh kosong' : null,
                         style: darkTextStyle.copyWith(
@@ -329,6 +398,7 @@ class _SuratKeteranganState extends State<SuratKeterangan> {
                         height: 15,
                       ),
                       TextFormField(
+                        readOnly: pendidikanField.value == '' ? false : true,
                         controller: pendidikanField,
                         validator: (value) => value!.isEmpty ? 'pendidikan terakhir tidak boleh kosong' : null,
                         style: darkTextStyle.copyWith(
@@ -353,30 +423,7 @@ class _SuratKeteranganState extends State<SuratKeterangan> {
                         height: 15,
                       ),
                       TextFormField(
-                        controller: jenisKtpField,
-                        validator: (value) => value!.isEmpty ? 'jenis KTP tidak boleh kosong' : null,
-                        style: darkTextStyle.copyWith(
-                          fontSize: 16,
-                        ),
-                        showCursor: false,
-                        decoration: InputDecoration(
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: primaryColor,
-                            ),
-                          ),
-                          label: Text(
-                            'Jenis KTP',
-                            style: darkTextStyle.copyWith(
-                              color: greyColor,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      TextFormField(
+                        readOnly: pekerjaanField.value == '' ? false : true,
                         controller: pekerjaanField,
                         validator: (value) => value!.isEmpty ? 'pekerjaan tidak boleh kosong' : null,
                         style: darkTextStyle.copyWith(
@@ -401,30 +448,7 @@ class _SuratKeteranganState extends State<SuratKeterangan> {
                         height: 15,
                       ),
                       TextFormField(
-                        controller: kampungField,
-                        validator: (value) => value!.isEmpty ? 'kampung tidak boleh kosong' : null,
-                        style: darkTextStyle.copyWith(
-                          fontSize: 16,
-                        ),
-                        showCursor: false,
-                        decoration: InputDecoration(
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: primaryColor,
-                            ),
-                          ),
-                          label: Text(
-                            'Kampung',
-                            style: darkTextStyle.copyWith(
-                              color: greyColor,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      TextFormField(
+                        readOnly: rwField.value == '' ? false : true,
                         controller: rwField,
                         validator: (value) => value!.isEmpty ? 'rw tidak boleh kosong' : null,
                         style: darkTextStyle.copyWith(
@@ -449,6 +473,7 @@ class _SuratKeteranganState extends State<SuratKeterangan> {
                         height: 15,
                       ),
                       TextFormField(
+                        readOnly: rwField.value == '' ? false : true,
                         controller: rtField,
                         validator: (value) => value!.isEmpty ? 'rt tidak boleh kosong' : null,
                         style: darkTextStyle.copyWith(
@@ -468,6 +493,47 @@ class _SuratKeteranganState extends State<SuratKeterangan> {
                             ),
                           ),
                         ),
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      DropdownSearch<String>(
+                        popupProps: const PopupProps.menu(
+                          showSelectedItems: true,
+                        ),
+                        items: const [
+                          'Surat Keterangan Usaha',
+                          'Surat Keterangan Belum Kawin',
+                          'Surat Keterangan Janda/Duda',
+                          'Surat Keterangan Tidak Mampu',
+                        ],
+                        dropdownDecoratorProps: const DropDownDecoratorProps(
+                          dropdownSearchDecoration: InputDecoration(
+                            labelText: "Pilih Jenis Surat",
+                            hintText: "pilih jenis surat",
+                          ),
+                        ),
+                        onChanged: (value) {
+                          switch (value) {
+                            case 'Surat Keterangan Usaha':
+                              jenisSuratField.text = '1';
+                              break;
+                            case 'Surat Keterangan Belum Kawin':
+                              jenisSuratField.text = '2';
+                              break;
+                            case 'Surat Keterangan Janda/Duda':
+                              jenisSuratField.text = '3';
+                              break;
+                            case 'Surat Keterangan Tidak Mampu':
+                              jenisSuratField.text = '4';
+                              break;
+                            default:
+                              jenisSuratField.text = '1';
+                              break;
+                          }
+                          // print(jenisSuratField.text);
+                        },
+                        selectedItem: "Surat Keterangan Usaha",
                       ),
                       const SizedBox(
                         height: 30,
@@ -494,22 +560,7 @@ class _SuratKeteranganState extends State<SuratKeterangan> {
                                   ),
                                   TextButton(
                                     onPressed: () {
-                                      showDialog(
-                                        barrierDismissible: false,
-                                        context: context,
-                                        builder: (context) => AlertDialog(
-                                          title: Text(
-                                            'Pengajuan Surat Berhasil',
-                                            style: darkTextStyle,
-                                          ),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: (() => context.goNamed('home')),
-                                              child: Text('Ok', style: darkTextStyle),
-                                            ),
-                                          ],
-                                        ),
-                                      );
+                                      _submitMails();
                                     },
                                     child: Text(
                                       'Ajukan',
