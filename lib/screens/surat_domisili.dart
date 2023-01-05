@@ -638,6 +638,9 @@ class _SuratDomisiliState extends State<SuratDomisili> {
                                   ),
                                   TextButton(
                                     onPressed: () {
+                                      setState(() {
+                                        _submitLoading = true;
+                                      });
                                       _submitMails();
                                     },
                                     child: Text(

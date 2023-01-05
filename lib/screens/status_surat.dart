@@ -4,8 +4,8 @@ import 'package:wangunsari/components/card_surat.dart';
 import 'package:wangunsari/models/api_response.dart';
 import 'package:wangunsari/models/surat.dart';
 import 'package:wangunsari/services/config.dart';
-import 'package:wangunsari/services/mail.dart';
 import 'package:wangunsari/services/user.dart';
+import 'package:wangunsari/services/utility.dart';
 import 'package:wangunsari/theme.dart';
 
 class StatusSurat extends StatefulWidget {
@@ -56,7 +56,6 @@ class _StatusSuratState extends State<StatusSurat> {
         title: Text(
           'Cek Status Surat',
           style: whiteTextStyle.copyWith(
-            fontSize: 16,
             fontWeight: medium,
           ),
         ),
@@ -76,6 +75,7 @@ class _StatusSuratState extends State<StatusSurat> {
                   itemBuilder: (context, index) {
                     Surats surat = _getMails[index];
                     return CardSurat(
+                      id: surat.id.toString(),
                       title: surat.jenis!,
                       date: surat.createdStr!,
                       status: surat.status! == 'DIBATALKAN'
