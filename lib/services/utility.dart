@@ -46,7 +46,7 @@ Future<ApiResponse> mailDetail(String id) async {
     String token = await getToken();
     // print(token);
     final response = await http.get(
-      Uri.parse('$mailDetailUrl$id'),
+      Uri.parse('$trackingMailUrl$id'),
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer $token',

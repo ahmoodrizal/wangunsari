@@ -38,6 +38,8 @@ class _EditSuratDomisiliState extends State<EditSuratDomisili> {
   TextEditingController tinggalSejakField = TextEditingController();
   TextEditingController rwField = TextEditingController();
   TextEditingController rtField = TextEditingController();
+  TextEditingController suratIdField = TextEditingController();
+  TextEditingController suratDetailField = TextEditingController();
 
   void _getDomisiliDetail() async {
     ApiResponse response = await domisiliMailDetail(widget.suratId);
@@ -62,6 +64,8 @@ class _EditSuratDomisiliState extends State<EditSuratDomisili> {
         alamatAsalField.text = domisiliDetail!.suratBody!.alamatAsal!.replaceAll("\n", " ");
         rwField.text = domisiliDetail!.rw!.nomor ?? '';
         rtField.text = domisiliDetail!.rt!.nomor ?? '';
+        suratIdField.text = widget.suratId;
+        suratDetailField.text = domisiliDetail!.suratBody!.id.toString();
       });
     } else if (response.error == unauthorized) {
       logout().then((value) => context.goNamed('login'));
@@ -69,6 +73,59 @@ class _EditSuratDomisiliState extends State<EditSuratDomisili> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('${response.error}'),
+        ),
+      );
+    }
+  }
+
+  void _editMailDomisili() async {
+    ApiResponse response = await editDomisiliMail(
+      suratIdField.text,
+      suratDetailField.text,
+      rtField.text,
+      rwField.text,
+      nikField.text,
+      nameField.text,
+      tempatLahirField.text,
+      tanggalLahirField.text,
+      jenisKelaminField.text,
+      kewarganegaraanField.text,
+      negaraField.text,
+      agamaField.text,
+      statusKawinField.text,
+      pendidikanField.text,
+      pekerjaanField.text,
+      alamatField.text,
+      alamatAsalField.text,
+      tinggalSejakField.text,
+    );
+    if (response.error == null) {
+      // Navigator.of(context).pop();
+      showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(
+            'Perbaiki Pengajuan Surat Berhasil',
+            style: darkTextStyle,
+          ),
+          actions: [
+            TextButton(
+              onPressed: (() => context.goNamed('status')),
+              child: Text('Ok', style: darkTextStyle),
+            ),
+          ],
+        ),
+      );
+    } else if (response.error == unauthorized) {
+      logout().then((value) => context.goNamed('login'));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            '${response.error}',
+            style: whiteTextStyle,
+          ),
         ),
       );
     }
@@ -180,7 +237,8 @@ class _EditSuratDomisiliState extends State<EditSuratDomisili> {
                       ),
                       onPressed: () {
                         if (formkey.currentState!.validate()) {
-                          print('Edit surat');
+                          _editMailDomisili();
+                          // print('Edit surat');
                         }
                       },
                       child: Text(

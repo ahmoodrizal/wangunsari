@@ -48,7 +48,7 @@ class Rt {
   String? rwId;
   String? createdAt;
   String? updatedAt;
-  Null? updatedBy;
+  String? updatedBy;
   String? createdBy;
 
   Rt({this.id, this.nomor, this.namaDaerah, this.rwId, this.createdAt, this.updatedAt, this.updatedBy, this.createdBy});
@@ -83,7 +83,7 @@ class Rw {
   String? nomor;
   String? createdAt;
   String? updatedAt;
-  Null? updatedBy;
+  String? updatedBy;
   String? createdBy;
 
   Rw({this.id, this.nomor, this.createdAt, this.updatedAt, this.updatedBy, this.createdBy});
@@ -126,23 +126,23 @@ class Surat {
   String? rtNama;
   String? rwNik;
   String? rwNama;
-  Null? kadesNip;
+  String? kadesNip;
   String? kadesNama;
   String? kadesJabatan;
-  Null? noSurat;
+  String? noSurat;
   String? noResi;
-  Null? fotoPbb;
-  Null? fotoKk;
-  Null? regNo;
+  String? fotoPbb;
+  String? fotoKk;
+  String? regNo;
   String? tanggal;
   String? status;
   String? jenis;
   String? dibatalkan;
-  Null? alasanDibatalkan;
-  Null? tanggalDibatalkan;
+  String? alasanDibatalkan;
+  String? tanggalDibatalkan;
   String? createdAt;
   String? updatedAt;
-  Null? updatedBy;
+  String? updatedBy;
   String? createdBy;
   String? tanggalFormat;
   String? tanggalDibatalkanFormat;
@@ -278,7 +278,7 @@ class SuratBody {
   String? tinggalSejak;
   String? nik;
   String? nama;
-  Null? nikJenis;
+  String? nikJenis;
   String? jenisKelamin;
   String? tempatLahir;
   String? tanggalLahir;
@@ -286,15 +286,15 @@ class SuratBody {
   String? pendidikan;
   String? pekerjaan;
   String? statusKawin;
-  Null? noKk;
+  String? noKk;
   String? wargaNegara;
   String? negaraNama;
-  Null? noPassport;
-  Null? kitasKitap;
-  Null? fotoKtp;
+  String? noPassport;
+  String? kitasKitap;
+  String? fotoKtp;
   String? createdAt;
   String? updatedAt;
-  Null? updatedBy;
+  String? updatedBy;
   String? createdBy;
   String? tanggalLahirFormat;
   String? tanggalSejakFormat;
@@ -394,10 +394,10 @@ class SuratBody {
 class Trackings {
   int? id;
   String? suratId;
-  Null? dariPegawaiId;
-  Null? kePegawaiId;
+  String? dariPegawaiId;
+  String? kePegawaiId;
   String? keterangan;
-  Null? catatan;
+  String? catatan;
   String? waktu;
   String? dariNama;
   String? dariNip;
@@ -406,8 +406,8 @@ class Trackings {
   String? status;
   String? createdAt;
   String? updatedAt;
-  Null? updatedBy;
-  Null? createdBy;
+  String? updatedBy;
+  String? createdBy;
   String? waktuOrigin;
 
   Trackings(

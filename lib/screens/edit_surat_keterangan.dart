@@ -40,6 +40,8 @@ class _EditSuratKeteranganState extends State<EditSuratKeterangan> {
   TextEditingController rwField = TextEditingController();
   TextEditingController rtField = TextEditingController();
   TextEditingController jenisSuratField = TextEditingController();
+  TextEditingController suratIdField = TextEditingController();
+  TextEditingController suratDetailField = TextEditingController();
 
   void _getKeteranganDetail() async {
     ApiResponse response = await keteranganMailDetail(widget.suratId);
@@ -63,6 +65,8 @@ class _EditSuratKeteranganState extends State<EditSuratKeterangan> {
         alamatField.text = keteranganDetail!.suratBody!.alamat!.replaceAll("\n", " ");
         rwField.text = keteranganDetail!.rw!.nomor ?? '';
         rtField.text = keteranganDetail!.rt!.nomor ?? '';
+        suratIdField.text = widget.suratId;
+        suratDetailField.text = keteranganDetail!.suratBody!.id.toString();
       });
     } else if (response.error == unauthorized) {
       logout().then((value) => context.goNamed('login'));
@@ -70,6 +74,57 @@ class _EditSuratKeteranganState extends State<EditSuratKeterangan> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('${response.error}'),
+        ),
+      );
+    }
+  }
+
+  void _editKeteranganMails() async {
+    ApiResponse response = await editKeteranganMail(
+        suratIdField.text,
+        suratDetailField.text,
+        rtField.text,
+        rwField.text,
+        nikField.text,
+        nameField.text,
+        tempatLahirField.text,
+        tanggalLahirField.text,
+        jenisKelaminField.text,
+        kewarganegaraanField.text,
+        negaraField.text,
+        agamaField.text,
+        statusKawinField.text,
+        pendidikanField.text,
+        pekerjaanField.text,
+        alamatField.text,
+        jenisSuratField.text);
+    if (response.error == null) {
+      // Navigator.of(context).pop();
+      showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(
+            'Perbaiki Pengajuan Surat Berhasil',
+            style: darkTextStyle,
+          ),
+          actions: [
+            TextButton(
+              onPressed: (() => context.goNamed('status')),
+              child: Text('Ok', style: darkTextStyle),
+            ),
+          ],
+        ),
+      );
+    } else if (response.error == unauthorized) {
+      logout().then((value) => context.goNamed('login'));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            '${response.error}',
+            style: whiteTextStyle,
+          ),
         ),
       );
     }
@@ -180,7 +235,8 @@ class _EditSuratKeteranganState extends State<EditSuratKeterangan> {
                       ),
                       onPressed: () {
                         if (formkey.currentState!.validate()) {
-                          print('Edit surat');
+                          _editKeteranganMails();
+                          // print('Edit surat');
                         }
                       },
                       child: Text(
