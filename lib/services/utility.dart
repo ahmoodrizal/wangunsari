@@ -1,4 +1,5 @@
 import 'package:wangunsari/models/api_response.dart';
+import 'package:wangunsari/models/meta.dart';
 import 'package:wangunsari/models/surat.dart';
 import 'package:wangunsari/models/surat_detail.dart';
 import 'package:wangunsari/services/config.dart';
@@ -71,5 +72,44 @@ Future<ApiResponse> mailDetail(String id) async {
     apiResponse.error = 'Fetch detail mail fail - something went wrong';
   }
   // print('$mailDetailUrl$id');
+  return apiResponse;
+}
+
+// Batalkan Pengajuan Surat
+Future<ApiResponse> abortedMail(String id, String reason) async {
+  ApiResponse apiResponse = ApiResponse();
+  try {
+    String token = await getToken();
+    // print(token);
+    final response = await http.post(
+      Uri.parse(batalkanSuratUrl),
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      body: {
+        'surat_id': id,
+        'alasan_dibatalkan': reason,
+      },
+    );
+
+    switch (response.statusCode) {
+      case 200:
+        apiResponse.data = Meta.fromJson(jsonDecode(response.body)['meta']);
+        break;
+      case 422:
+        final errors = jsonDecode(response.body)['errors'];
+        apiResponse.error = errors[errors.key.elementAt(0)][0];
+        break;
+      case 401:
+        apiResponse.error = unauthorized;
+        break;
+      default:
+        apiResponse.error = somethingWentWrong;
+        break;
+    }
+  } catch (e) {
+    apiResponse.error = 'Gagal Batalkan Surat - something went wrong';
+  }
   return apiResponse;
 }

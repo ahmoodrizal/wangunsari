@@ -69,21 +69,26 @@ class _StatusSuratState extends State<StatusSurat> {
               ),
             )
           : _getMails.isNotEmpty
-              ? ListView.builder(
-                  padding: EdgeInsets.all(defaultmargin),
-                  itemCount: _getMails.length,
-                  itemBuilder: (context, index) {
-                    Surats surat = _getMails[index];
-                    return CardSurat(
-                      id: surat.id.toString(),
-                      title: surat.jenis!,
-                      date: surat.createdStr!,
-                      status: surat.status! == 'DIBATALKAN'
-                          ? '${surat.trackingStatus} - ${surat.alasanDibatalkan}'
-                          : '${surat.trackingStatus} - ${surat.trackingKeterangan}',
-                      resi: surat.noResi!,
-                    );
-                  },
+              ? RefreshIndicator(
+                  backgroundColor: whiteColor,
+                  color: primaryColor,
+                  onRefresh: () => fetchMails(),
+                  child: ListView.builder(
+                    padding: EdgeInsets.all(defaultmargin),
+                    itemCount: _getMails.length,
+                    itemBuilder: (context, index) {
+                      Surats surat = _getMails[index];
+                      return CardSurat(
+                        id: surat.id.toString(),
+                        title: surat.jenis!,
+                        date: surat.createdStr!,
+                        status: surat.status! == 'DIBATALKAN'
+                            ? '${surat.trackingStatus} - ${surat.alasanDibatalkan}'
+                            : '${surat.trackingStatus} - ${surat.trackingKeterangan}',
+                        resi: surat.noResi!,
+                      );
+                    },
+                  ),
                 )
               : Center(
                   child: Text(

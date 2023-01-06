@@ -21,6 +21,8 @@ class DetailSurat extends StatefulWidget {
 }
 
 class _DetailSuratState extends State<DetailSurat> {
+  final GlobalKey<FormState> formkey = GlobalKey<FormState>();
+  TextEditingController reasonField = TextEditingController();
   SuratDetailService? detail;
   bool _loading = true;
   late List<Trackings> tracks = [];
@@ -45,6 +47,119 @@ class _DetailSuratState extends State<DetailSurat> {
         ),
       );
     }
+  }
+
+  void _abortMailFunc() async {
+    ApiResponse response = await abortedMail(widget.id, reasonField.text);
+    if (response.error == null) {
+      showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(
+            'Pembatalan Surat Berhasil',
+            style: darkTextStyle,
+          ),
+          actions: [
+            TextButton(
+              onPressed: (() => context.goNamed('status')),
+              child: Text('Ok', style: darkTextStyle),
+            ),
+          ],
+        ),
+      );
+    } else if (response.error == unauthorized) {
+      logout().then((value) => context.goNamed('login'));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('${response.error}'),
+        ),
+      );
+    }
+  }
+
+  void _showReasonModal() {
+    showModalBottomSheet(
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadiusDirectional.vertical(
+          top: Radius.circular(
+            6,
+          ),
+        ),
+      ),
+      context: context,
+      builder: (context) {
+        return Container(
+          padding: EdgeInsets.all(defaultmargin),
+          height: 400,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Ajukan Pembatalan Surat',
+                style: darkTextStyle.copyWith(
+                  fontSize: 18,
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Form(
+                key: formkey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextFormField(
+                      controller: reasonField,
+                      validator: (value) => value!.isEmpty ? 'masukan alasan pembatalan' : null,
+                      style: darkTextStyle.copyWith(
+                        fontSize: 16,
+                      ),
+                      showCursor: false,
+                      decoration: InputDecoration(
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: primaryColor,
+                          ),
+                        ),
+                        label: Text(
+                          'Alasan Pembatalan',
+                          style: darkTextStyle.copyWith(
+                            color: greyColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    TextButton(
+                      style: TextButton.styleFrom(
+                        padding: const EdgeInsets.all(8),
+                        elevation: 0,
+                        backgroundColor: const Color.fromARGB(255, 206, 92, 92),
+                      ),
+                      onPressed: () {
+                        if (formkey.currentState!.validate()) {
+                          Navigator.pop(context);
+                          _abortMailFunc();
+                          // print('Surat Batal');
+                        }
+                      },
+                      child: Text(
+                        'Ajukan Pembatalan',
+                        style: whiteTextStyle,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -94,6 +209,77 @@ class _DetailSuratState extends State<DetailSurat> {
                     LineDetail(title: 'RT', content: detail!.surat!.rtNama ?? 'Error'),
                     LineDetail(title: 'RW', content: detail!.surat!.rwNama ?? 'Error'),
                     LineDetail(title: 'Kades', content: detail!.surat!.kadesNama ?? 'Error'),
+                    detail!.surat!.status != 'DIBATALKAN'
+                        ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Menu',
+                                style: darkTextStyle.copyWith(
+                                  fontSize: 16,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    child: TextButton(
+                                      style: TextButton.styleFrom(
+                                        padding: const EdgeInsets.all(8),
+                                        elevation: 0,
+                                        backgroundColor: const Color.fromARGB(255, 206, 92, 92),
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          reasonField.text = '';
+                                        });
+                                        _showReasonModal();
+                                      },
+                                      child: Text(
+                                        'Batalkan Surat',
+                                        style: whiteTextStyle.copyWith(
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  Expanded(
+                                    child: TextButton(
+                                      style: TextButton.styleFrom(
+                                        padding: const EdgeInsets.all(8),
+                                        elevation: 0,
+                                        backgroundColor: const Color.fromARGB(255, 82, 165, 165),
+                                      ),
+                                      onPressed: () {
+                                        switch (detail!.surat!.jenis!) {
+                                          case 'SURAT DOMISILI':
+                                            // print('edit surat domisili');
+                                            break;
+                                          case 'SURAT KETERANGAN':
+                                            // print('edit surat keterangan');
+                                            break;
+                                          default:
+                                        }
+                                      },
+                                      child: Text(
+                                        'Edit Data Surat',
+                                        style: whiteTextStyle.copyWith(
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
+                          )
+                        : const SizedBox(),
                     SizedBox(
                       height: defaultmargin,
                     ),

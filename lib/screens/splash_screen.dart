@@ -50,7 +50,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   height: 10,
                 ),
                 Text(
-                  'Sistem Informasi Surat Menyurat Desa Wangunsari',
+                  'Sistem Informasi Surat Digital Desa Wangunsari Berbasis Mobile',
                   style: darkTextStyle.copyWith(
                     fontWeight: medium,
                     fontSize: 16,
@@ -61,7 +61,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   child: Align(
                     alignment: FractionalOffset.bottomCenter,
                     child: Text(
-                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc commodo congue arcu. Aenean commodo elit sit amet tellus tempor',
+                      'Program Magang MKBM 2022/2023 Universitas Sangga Buana YPKP Bandung - Desa Wangunsari, Lembang, Kabupaten Bandung Barat',
                       style: darkTextStyle.copyWith(
                         fontSize: 12,
                         fontWeight: regular,

@@ -19,7 +19,7 @@ class TrackingItem extends StatelessWidget {
               width: 30,
               height: 30,
               decoration: BoxDecoration(
-                color: status == 'DIBATALKAN' ? Color.fromARGB(255, 206, 92, 92) : primaryColor,
+                color: status == 'DIBATALKAN' ? const Color.fromARGB(255, 206, 92, 92) : primaryColor,
                 shape: BoxShape.circle,
               ),
             ),

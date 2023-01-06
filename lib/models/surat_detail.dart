@@ -5,17 +5,17 @@ class SuratDetailService {
   SuratDetailService({this.surat, this.trackings});
 
   SuratDetailService.fromJson(Map<String, dynamic> json) {
-    surat = json['surat'] != null ? new Surat.fromJson(json['surat']) : null;
+    surat = json['surat'] != null ? Surat.fromJson(json['surat']) : null;
     if (json['trackings'] != null) {
       trackings = <Trackings>[];
       json['trackings'].forEach((v) {
-        trackings!.add(new Trackings.fromJson(v));
+        trackings!.add(Trackings.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     if (this.surat != null) {
       data['surat'] = this.surat!.toJson();
     }
