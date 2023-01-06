@@ -1,7 +1,7 @@
 import 'package:wangunsari/models/api_response.dart';
 import 'package:wangunsari/models/meta.dart';
 import 'package:wangunsari/models/surat.dart';
-import 'package:wangunsari/models/surat_detail.dart';
+import 'package:wangunsari/models/tracking_mail.dart';
 import 'package:wangunsari/services/config.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -55,7 +55,7 @@ Future<ApiResponse> mailDetail(String id) async {
 
     switch (response.statusCode) {
       case 200:
-        apiResponse.data = SuratDetailService.fromJson(jsonDecode(response.body)['data']);
+        apiResponse.data = TrackingMailService.fromJson(jsonDecode(response.body)['data']);
         break;
       case 422:
         final errors = jsonDecode(response.body)['errors'];

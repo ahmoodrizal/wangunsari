@@ -17,7 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
   UserService? user;
   bool loading = true;
 
-  void getUser() async {
+  Future<void> getUser() async {
     ApiResponse response = await getUserDetail();
     if (response.error == null) {
       setState(() {

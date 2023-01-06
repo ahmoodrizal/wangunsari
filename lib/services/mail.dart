@@ -1,4 +1,6 @@
 import 'package:wangunsari/models/api_response.dart';
+import 'package:wangunsari/models/mail_domisili_detail.dart';
+import 'package:wangunsari/models/mail_keterangan_detail.dart';
 import 'package:wangunsari/services/config.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -71,6 +73,80 @@ Future<ApiResponse> submitDomisiliMail(
     }
   } catch (e) {
     apiResponse.error = 'Error - Submit Surat Domisili';
+  }
+  return apiResponse;
+}
+
+// Detail Surat Domisili
+Future<ApiResponse> domisiliMailDetail(String id) async {
+  ApiResponse apiResponse = ApiResponse();
+  try {
+    String token = await getToken();
+    final response = await http.get(
+      Uri.parse('$detailDomisiliUrl$id'),
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+    print(response.statusCode);
+    switch (response.statusCode) {
+      case 200:
+        apiResponse.data = MailDomisiliDetailService.fromJson(jsonDecode(response.body)['data']);
+        break;
+      case 422:
+        final errors = jsonDecode(response.body)['errors'];
+        apiResponse.error = errors[errors.key.elementAt(0)][0];
+        break;
+      case 403:
+        apiResponse.error = jsonDecode(response.body)['message'];
+        break;
+      case 500:
+        apiResponse.error = jsonDecode(response.body)['meta']['message'];
+        break;
+      default:
+        apiResponse.error = somethingWentWrong;
+        break;
+    }
+  } catch (e) {
+    apiResponse.error = 'Error - Mail Domisili Detail Service';
+  }
+  return apiResponse;
+}
+
+// Detail Surat Keterangan
+Future<ApiResponse> keteranganMailDetail(String id) async {
+  ApiResponse apiResponse = ApiResponse();
+  try {
+    String token = await getToken();
+    final response = await http.get(
+      Uri.parse('$detailKeteranganUrl$id'),
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+    // print(response.statusCode);
+    switch (response.statusCode) {
+      case 200:
+        apiResponse.data = MailKeteranganDetailService.fromJson(jsonDecode(response.body)['data']);
+        break;
+      case 422:
+        final errors = jsonDecode(response.body)['errors'];
+        apiResponse.error = errors[errors.key.elementAt(0)][0];
+        break;
+      case 403:
+        apiResponse.error = jsonDecode(response.body)['message'];
+        break;
+      case 500:
+        apiResponse.error = jsonDecode(response.body)['meta']['message'];
+        break;
+      default:
+        apiResponse.error = somethingWentWrong;
+        break;
+    }
+  } catch (e) {
+    apiResponse.error = 'Error - Mail Keterangan Detail Service';
   }
   return apiResponse;
 }

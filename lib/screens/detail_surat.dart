@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:wangunsari/components/clear_form_field.dart';
 import 'package:wangunsari/components/detail_line.dart';
 import 'package:wangunsari/components/tracking_item.dart';
 import 'package:wangunsari/models/api_response.dart';
-import 'package:wangunsari/models/surat_detail.dart';
+import 'package:wangunsari/models/tracking_mail.dart';
 import 'package:wangunsari/services/config.dart';
 import 'package:wangunsari/services/user.dart';
 import 'package:wangunsari/services/utility.dart';
@@ -23,7 +24,7 @@ class DetailSurat extends StatefulWidget {
 class _DetailSuratState extends State<DetailSurat> {
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
   TextEditingController reasonField = TextEditingController();
-  SuratDetailService? detail;
+  TrackingMailService? detail;
   bool _loading = true;
   late List<Trackings> tracks = [];
 
@@ -31,7 +32,7 @@ class _DetailSuratState extends State<DetailSurat> {
     ApiResponse response = await mailDetail(widget.id);
     if (response.error == null) {
       setState(() {
-        detail = response.data as SuratDetailService;
+        detail = response.data as TrackingMailService;
         tracks = [];
         List tracksData = detail!.trackings!;
         for (var e in tracksData) {
@@ -111,30 +112,7 @@ class _DetailSuratState extends State<DetailSurat> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TextFormField(
-                      controller: reasonField,
-                      validator: (value) => value!.isEmpty ? 'masukan alasan pembatalan' : null,
-                      style: darkTextStyle.copyWith(
-                        fontSize: 16,
-                      ),
-                      showCursor: false,
-                      decoration: InputDecoration(
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: primaryColor,
-                          ),
-                        ),
-                        label: Text(
-                          'Alasan Pembatalan',
-                          style: darkTextStyle.copyWith(
-                            color: greyColor,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
+                    ClearMailField(title: 'Alasan Pembatalan', type: TextInputType.text, controller: reasonField),
                     TextButton(
                       style: TextButton.styleFrom(
                         padding: const EdgeInsets.all(8),
@@ -264,12 +242,12 @@ class _DetailSuratState extends State<DetailSurat> {
                                         onPressed: () {
                                           switch (detail!.surat!.jenis!) {
                                             case 'SURAT DOMISILI':
-                                              context.goNamed('edit-surat-domisili', params: {'id': widget.id});
+                                              context.goNamed('edit-surat-domisili', params: {'suratId': widget.id, 'id': widget.id});
                                               // print('edit surat domisili');
                                               break;
                                             case 'SURAT KETERANGAN':
                                               // print('edit surat keterangan');
-                                              context.goNamed('edit-surat-keterangan', params: {'id': widget.id});
+                                              context.goNamed('edit-surat-keterangan', params: {'suratId': widget.id, 'id': widget.id});
                                               break;
                                             default:
                                           }

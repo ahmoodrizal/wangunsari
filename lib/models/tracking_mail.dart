@@ -1,10 +1,10 @@
-class SuratDetailService {
+class TrackingMailService {
   Surat? surat;
   List<Trackings>? trackings;
 
-  SuratDetailService({this.surat, this.trackings});
+  TrackingMailService({this.surat, this.trackings});
 
-  SuratDetailService.fromJson(Map<String, dynamic> json) {
+  TrackingMailService.fromJson(Map<String, dynamic> json) {
     surat = json['surat'] != null ? Surat.fromJson(json['surat']) : null;
     if (json['trackings'] != null) {
       trackings = <Trackings>[];

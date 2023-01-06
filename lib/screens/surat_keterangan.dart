@@ -19,8 +19,8 @@ class SuratKeterangan extends StatefulWidget {
 
 class _SuratKeteranganState extends State<SuratKeterangan> {
   UserService? user;
-  bool loading = true;
   bool _submitLoading = false;
+  bool loading = true;
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
   TextEditingController nikField = TextEditingController();
   TextEditingController nameField = TextEditingController();

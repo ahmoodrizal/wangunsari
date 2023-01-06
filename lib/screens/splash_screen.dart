@@ -11,7 +11,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  void _loadUserInfo() async {
+  Future<void> _loadUserInfo() async {
     String token = await getToken();
     if (token == '') {
       // print('token not defined, redirect to login page');

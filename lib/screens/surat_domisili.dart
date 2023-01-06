@@ -19,8 +19,8 @@ class SuratDomisili extends StatefulWidget {
 
 class _SuratDomisiliState extends State<SuratDomisili> {
   UserService? user;
-  bool loading = true;
   bool _submitLoading = false;
+  bool loading = true;
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
   TextEditingController nikField = TextEditingController();
   TextEditingController nameField = TextEditingController();

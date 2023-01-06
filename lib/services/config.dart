@@ -14,6 +14,10 @@ const batalkanSuratUrl = '$baseUrl/penduduk/surat/batalkan';
 const submitSuratDomisiliUrl = '$baseUrl/penduduk/surat/domisili/simpan';
 const submitSuratKeteranganUrl = '$baseUrl/penduduk/surat/keterangan/simpan';
 
+// Mail Details
+const detailDomisiliUrl = '$baseUrl/penduduk/surat/domisili/detail?surat_id=';
+const detailKeteranganUrl = '$baseUrl/penduduk/surat/keterangan/detail?surat_id=';
+
 // Error Message
 const serverError = 'Server Error';
 const unauthorized = 'Unauthorized';

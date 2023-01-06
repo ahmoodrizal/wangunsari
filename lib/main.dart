@@ -83,14 +83,14 @@ class MyApp extends StatelessWidget {
                 builder: (context, state) => DetailSurat(id: state.params["id"]!),
                 routes: [
                   GoRoute(
-                    path: 'edit-surat-domisili/:id',
+                    path: 'edit-surat-domisili/:suratId',
                     name: 'edit-surat-domisili',
-                    builder: (context, state) => EditSuratDomisili(id: state.params["id"]!),
+                    builder: (context, state) => EditSuratDomisili(suratId: state.params["suratId"]!),
                   ),
                   GoRoute(
-                    path: 'edit-surat-keterangan/:id',
+                    path: 'edit-surat-keterangan/:suratId',
                     name: 'edit-surat-keterangan',
-                    builder: (context, state) => EditSuratKeterangan(id: state.params["id"]!),
+                    builder: (context, state) => EditSuratKeterangan(suratId: state.params["suratId"]!),
                   ),
                 ],
               ),
