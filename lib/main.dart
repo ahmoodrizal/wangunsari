@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wangunsari/screens/detail_surat.dart';
+import 'package:wangunsari/screens/edit_surat_domisili.dart';
+import 'package:wangunsari/screens/edit_surat_keterangan.dart';
 import 'package:wangunsari/screens/home_screen.dart';
 import 'package:wangunsari/screens/login_screen.dart';
 import 'package:wangunsari/screens/profile_screen.dart';
@@ -79,6 +81,18 @@ class MyApp extends StatelessWidget {
                 path: 'detail-surat/:id',
                 name: 'detail-surat',
                 builder: (context, state) => DetailSurat(id: state.params["id"]!),
+                routes: [
+                  GoRoute(
+                    path: 'edit-surat-domisili/:id',
+                    name: 'edit-surat-domisili',
+                    builder: (context, state) => EditSuratDomisili(id: state.params["id"]!),
+                  ),
+                  GoRoute(
+                    path: 'edit-surat-keterangan/:id',
+                    name: 'edit-surat-keterangan',
+                    builder: (context, state) => EditSuratKeterangan(id: state.params["id"]!),
+                  ),
+                ],
               ),
             ],
           ),

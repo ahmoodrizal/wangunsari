@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:wangunsari/components/alert_card.dart';
+import 'package:wangunsari/components/clear_form_field.dart';
+import 'package:wangunsari/components/form_field.dart';
 import 'package:wangunsari/models/api_response.dart';
 import 'package:wangunsari/models/user.dart';
 import 'package:wangunsari/services/config.dart';
@@ -165,25 +168,7 @@ class _SuratDomisiliState extends State<SuratDomisili> {
                         ),
                       ),
                       const SizedBox(height: 15),
-                      Container(
-                        padding: const EdgeInsets.symmetric(vertical: 11, horizontal: 15),
-                        width: double.infinity,
-                        height: 100,
-                        decoration: BoxDecoration(
-                          color: const Color(0xffFFF3CD),
-                          borderRadius: BorderRadius.circular(8),
-                          border: Border.all(
-                            color: const Color(0xffFFEEBA),
-                          ),
-                        ),
-                        child: Text(
-                          'Perhatian!\nPengajuan surat membutuhkan persetujuan RT, RW dan Pihak Kelurahan setempat, silahkan hubungi admin apabila 5x24 belum mendaptkan persetujuan.',
-                          style: yellowTextStyle.copyWith(
-                            fontSize: 12,
-                          ),
-                          textAlign: TextAlign.justify,
-                        ),
-                      ),
+                      const AlertCard(),
                       SizedBox(
                         height: defaultmargin,
                       ),
@@ -197,328 +182,19 @@ class _SuratDomisiliState extends State<SuratDomisili> {
                       const SizedBox(
                         height: 10,
                       ),
-                      TextFormField(
-                        readOnly: nikField.value == '' ? false : true,
-                        controller: nikField,
-                        validator: (value) => value!.isEmpty ? 'nik tidak boleh kosong' : null,
-                        keyboardType: TextInputType.number,
-                        style: darkTextStyle.copyWith(
-                          fontSize: 16,
-                        ),
-                        showCursor: false,
-                        decoration: InputDecoration(
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: primaryColor,
-                            ),
-                          ),
-                          label: Text(
-                            'Nomor Induk Kependudukan',
-                            style: darkTextStyle.copyWith(
-                              color: greyColor,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      TextFormField(
-                        readOnly: nameField.value == '' ? false : true,
-                        controller: nameField,
-                        validator: (value) => value!.isEmpty ? 'nama tidak boleh kosong' : null,
-                        style: darkTextStyle.copyWith(
-                          fontSize: 16,
-                        ),
-                        showCursor: false,
-                        decoration: InputDecoration(
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: primaryColor,
-                            ),
-                          ),
-                          label: Text(
-                            'Nama Lengkap',
-                            style: darkTextStyle.copyWith(
-                              color: greyColor,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      TextFormField(
-                        readOnly: tempatLahirField.value == '' ? false : true,
-                        controller: tempatLahirField,
-                        validator: (value) => value!.isEmpty ? 'tempat lahir tidak boleh kosong' : null,
-                        style: darkTextStyle.copyWith(
-                          fontSize: 16,
-                        ),
-                        showCursor: false,
-                        decoration: InputDecoration(
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: primaryColor,
-                            ),
-                          ),
-                          label: Text(
-                            'Tempat Lahir',
-                            style: darkTextStyle.copyWith(
-                              color: greyColor,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      TextFormField(
-                        readOnly: tanggalLahirField.value == '' ? false : true,
-                        controller: tanggalLahirField,
-                        validator: (value) => value!.isEmpty ? 'tanggal lahir tidak boleh kosong' : null,
-                        style: darkTextStyle.copyWith(
-                          fontSize: 16,
-                        ),
-                        showCursor: false,
-                        decoration: InputDecoration(
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: primaryColor,
-                            ),
-                          ),
-                          label: Text(
-                            'Tanggal Lahir',
-                            style: darkTextStyle.copyWith(
-                              color: greyColor,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      TextFormField(
-                        readOnly: jenisKelaminField.value == '' ? false : true,
-                        controller: jenisKelaminField,
-                        validator: (value) => value!.isEmpty ? 'jenis kelamin tidak boleh kosong' : null,
-                        style: darkTextStyle.copyWith(
-                          fontSize: 16,
-                        ),
-                        showCursor: false,
-                        decoration: InputDecoration(
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: primaryColor,
-                            ),
-                          ),
-                          label: Text(
-                            'Jenis Kelamin',
-                            style: darkTextStyle.copyWith(
-                              color: greyColor,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      TextFormField(
-                        readOnly: kewarganegaraanField.value == '' ? false : true,
-                        controller: kewarganegaraanField,
-                        validator: (value) => value!.isEmpty ? 'kewarganegaraan tidak boleh kosong' : null,
-                        style: darkTextStyle.copyWith(
-                          fontSize: 16,
-                        ),
-                        showCursor: false,
-                        decoration: InputDecoration(
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: primaryColor,
-                            ),
-                          ),
-                          label: Text(
-                            'Kewarganegaraan',
-                            style: darkTextStyle.copyWith(
-                              color: greyColor,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      TextFormField(
-                        validator: (value) => value!.isEmpty ? 'negara tidak boleh kosong' : null,
-                        readOnly: negaraField.value == '' ? false : true,
-                        controller: negaraField,
-                        style: darkTextStyle.copyWith(
-                          fontSize: 16,
-                        ),
-                        showCursor: false,
-                        decoration: InputDecoration(
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: primaryColor,
-                            ),
-                          ),
-                          label: Text(
-                            'Negara',
-                            style: darkTextStyle.copyWith(
-                              color: greyColor,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      TextFormField(
-                        readOnly: agamaField.value == '' ? false : true,
-                        controller: agamaField,
-                        validator: (value) => value!.isEmpty ? 'agama tidak boleh kosong' : null,
-                        style: darkTextStyle.copyWith(
-                          fontSize: 16,
-                        ),
-                        showCursor: false,
-                        decoration: InputDecoration(
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: primaryColor,
-                            ),
-                          ),
-                          label: Text(
-                            'Agama',
-                            style: darkTextStyle.copyWith(
-                              color: greyColor,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      TextFormField(
-                        readOnly: statusKawinField.value == '' ? false : true,
-                        controller: statusKawinField,
-                        validator: (value) => value!.isEmpty ? 'status kawin tidak boleh kosong' : null,
-                        style: darkTextStyle.copyWith(
-                          fontSize: 16,
-                        ),
-                        showCursor: false,
-                        decoration: InputDecoration(
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: primaryColor,
-                            ),
-                          ),
-                          label: Text(
-                            'Status Perkawinan',
-                            style: darkTextStyle.copyWith(
-                              color: greyColor,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      TextFormField(
-                        readOnly: pendidikanField.value == '' ? false : true,
-                        controller: pendidikanField,
-                        validator: (value) => value!.isEmpty ? 'pendidikan tidak boleh kosong' : null,
-                        style: darkTextStyle.copyWith(
-                          fontSize: 16,
-                        ),
-                        showCursor: false,
-                        decoration: InputDecoration(
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: primaryColor,
-                            ),
-                          ),
-                          label: Text(
-                            'Pendidikan Terakhir',
-                            style: darkTextStyle.copyWith(
-                              color: greyColor,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      TextFormField(
-                        readOnly: pekerjaanField.value == '' ? false : true,
-                        controller: pekerjaanField,
-                        validator: (value) => value!.isEmpty ? 'pekerjaan tidak boleh kosong' : null,
-                        style: darkTextStyle.copyWith(
-                          fontSize: 16,
-                        ),
-                        showCursor: false,
-                        decoration: InputDecoration(
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: primaryColor,
-                            ),
-                          ),
-                          label: Text(
-                            'Pekerjaan',
-                            style: darkTextStyle.copyWith(
-                              color: greyColor,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      TextFormField(
-                        readOnly: alamatField.value == '' ? false : true,
-                        controller: alamatField,
-                        validator: (value) => value!.isEmpty ? 'alamat tidak boleh kosong' : null,
-                        style: darkTextStyle.copyWith(
-                          fontSize: 16,
-                        ),
-                        showCursor: false,
-                        decoration: InputDecoration(
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: primaryColor,
-                            ),
-                          ),
-                          label: Text(
-                            'Alamat',
-                            style: darkTextStyle.copyWith(
-                              color: greyColor,
-                            ),
-                          ),
-                        ),
-                      ),
-                      TextFormField(
-                        controller: alamatAsalField,
-                        validator: (value) => value!.isEmpty ? 'alamat asal tidak boleh kosong' : null,
-                        style: darkTextStyle.copyWith(
-                          fontSize: 16,
-                        ),
-                        showCursor: false,
-                        decoration: InputDecoration(
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: primaryColor,
-                            ),
-                          ),
-                          label: Text(
-                            'Alamat Asal',
-                            style: darkTextStyle.copyWith(
-                              color: greyColor,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
+                      MailFormField(title: 'Nomor Induk Kependudukan', type: TextInputType.number, controller: nikField),
+                      MailFormField(title: 'Nama Lengkap', type: TextInputType.text, controller: nameField),
+                      MailFormField(title: 'Tempat Lahir', type: TextInputType.text, controller: tempatLahirField),
+                      MailFormField(title: 'Tanggal Lahir', type: TextInputType.text, controller: tanggalLahirField),
+                      MailFormField(title: 'Jenis Kelamin', type: TextInputType.text, controller: jenisKelaminField),
+                      MailFormField(title: 'Kewarganegaraan', type: TextInputType.text, controller: kewarganegaraanField),
+                      MailFormField(title: 'Negara', type: TextInputType.text, controller: negaraField),
+                      MailFormField(title: 'Agama', type: TextInputType.text, controller: agamaField),
+                      MailFormField(title: 'Status Perkawinan', type: TextInputType.text, controller: statusKawinField),
+                      MailFormField(title: 'Pendidikan', type: TextInputType.text, controller: pendidikanField),
+                      MailFormField(title: 'Pekerjaan', type: TextInputType.text, controller: pekerjaanField),
+                      MailFormField(title: 'Alamat', type: TextInputType.text, controller: alamatField),
+                      ClearMailField(title: 'Alamat Asal', type: TextInputType.text, controller: alamatAsalField),
                       TextFormField(
                         readOnly: true,
                         controller: tinggalSejakField,
@@ -566,53 +242,8 @@ class _SuratDomisiliState extends State<SuratDomisili> {
                       const SizedBox(
                         height: 15,
                       ),
-                      TextFormField(
-                        readOnly: rtField.value == '' ? false : true,
-                        controller: rtField,
-                        validator: (value) => value!.isEmpty ? 'rt tidak boleh kosong' : null,
-                        style: darkTextStyle.copyWith(
-                          fontSize: 16,
-                        ),
-                        showCursor: false,
-                        decoration: InputDecoration(
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: primaryColor,
-                            ),
-                          ),
-                          label: Text(
-                            'RT',
-                            style: darkTextStyle.copyWith(
-                              color: greyColor,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      TextFormField(
-                        readOnly: rwField.value == '' ? false : true,
-                        controller: rwField,
-                        validator: (value) => value!.isEmpty ? 'rw tidak boleh kosong' : null,
-                        style: darkTextStyle.copyWith(
-                          fontSize: 16,
-                        ),
-                        showCursor: false,
-                        decoration: InputDecoration(
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: primaryColor,
-                            ),
-                          ),
-                          label: Text(
-                            'RW',
-                            style: darkTextStyle.copyWith(
-                              color: greyColor,
-                            ),
-                          ),
-                        ),
-                      ),
+                      MailFormField(title: 'RT', type: TextInputType.text, controller: rtField),
+                      MailFormField(title: 'RW', type: TextInputType.text, controller: rwField),
                       const SizedBox(
                         height: 30,
                       ),
