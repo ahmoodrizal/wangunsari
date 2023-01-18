@@ -83,6 +83,7 @@ class _DetailSuratState extends State<DetailSurat> {
 
   void _showReasonModal() {
     showModalBottomSheet(
+      isScrollControlled: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadiusDirectional.vertical(
           top: Radius.circular(
@@ -94,7 +95,7 @@ class _DetailSuratState extends State<DetailSurat> {
       builder: (context) {
         return Container(
           padding: EdgeInsets.all(defaultmargin),
-          height: 400,
+          height: 500,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -110,6 +111,7 @@ class _DetailSuratState extends State<DetailSurat> {
               Form(
                 key: formkey,
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ClearMailField(title: 'Alasan Pembatalan', type: TextInputType.text, controller: reasonField),
@@ -193,77 +195,89 @@ class _DetailSuratState extends State<DetailSurat> {
                       LineDetail(title: 'RW', content: detail!.surat!.rwNama ?? 'Error'),
                       LineDetail(title: 'Kades', content: detail!.surat!.kadesNama ?? 'Error'),
                       detail!.surat!.status != 'DIBATALKAN'
-                          ? Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Menu',
-                                  style: darkTextStyle.copyWith(
-                                    fontSize: 16,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 15,
-                                ),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Expanded(
-                                      child: TextButton(
-                                        style: TextButton.styleFrom(
-                                          padding: const EdgeInsets.all(8),
-                                          elevation: 0,
-                                          backgroundColor: const Color.fromARGB(255, 206, 92, 92),
-                                        ),
-                                        onPressed: () {
-                                          setState(() {
-                                            reasonField.text = '';
-                                          });
-                                          _showReasonModal();
-                                        },
-                                        child: Text(
-                                          'Batalkan Surat',
-                                          style: whiteTextStyle.copyWith(
-                                            fontSize: 12,
+                          ? detail!.surat!.status != 'SELESAI'
+                              ? detail!.surat!.status != 'PENDUDUK'
+                                  ? Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Menu',
+                                          style: darkTextStyle.copyWith(
+                                            fontSize: 16,
                                           ),
                                         ),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    Expanded(
-                                      child: TextButton(
-                                        style: TextButton.styleFrom(
-                                          padding: const EdgeInsets.all(8),
-                                          elevation: 0,
-                                          backgroundColor: const Color.fromARGB(255, 82, 165, 165),
+                                        const SizedBox(
+                                          height: 15,
                                         ),
-                                        onPressed: () {
-                                          switch (detail!.surat!.jenis!) {
-                                            case 'SURAT DOMISILI':
-                                              context.goNamed('edit-surat-domisili', params: {'suratId': widget.id, 'id': widget.id});
-                                              // print('edit surat domisili');
-                                              break;
-                                            case 'SURAT KETERANGAN':
-                                              // print('edit surat keterangan');
-                                              context.goNamed('edit-surat-keterangan', params: {'suratId': widget.id, 'id': widget.id});
-                                              break;
-                                            default:
-                                          }
-                                        },
-                                        child: Text(
-                                          'Edit Data Surat',
-                                          style: whiteTextStyle.copyWith(
-                                            fontSize: 12,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            )
+                                        Row(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Expanded(
+                                              child: TextButton(
+                                                style: TextButton.styleFrom(
+                                                  padding: const EdgeInsets.all(8),
+                                                  elevation: 0,
+                                                  backgroundColor: const Color.fromARGB(255, 206, 92, 92),
+                                                ),
+                                                onPressed: () {
+                                                  setState(() {
+                                                    reasonField.text = '';
+                                                  });
+                                                  _showReasonModal();
+                                                },
+                                                child: Text(
+                                                  'Batalkan Surat',
+                                                  style: whiteTextStyle.copyWith(
+                                                    fontSize: 12,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              width: 10,
+                                            ),
+                                            Expanded(
+                                              child: TextButton(
+                                                style: TextButton.styleFrom(
+                                                  padding: const EdgeInsets.all(8),
+                                                  elevation: 0,
+                                                  backgroundColor: const Color.fromARGB(255, 82, 165, 165),
+                                                ),
+                                                onPressed: () {
+                                                  switch (detail!.surat!.jenis!) {
+                                                    case 'SURAT DOMISILI':
+                                                      context.goNamed('edit-surat-domisili', params: {'suratId': widget.id, 'id': widget.id});
+                                                      // print('edit surat domisili');
+                                                      break;
+                                                    case 'SURAT KETERANGAN':
+                                                      // print('edit surat keterangan');
+                                                      context.goNamed('edit-surat-keterangan', params: {'suratId': widget.id, 'id': widget.id});
+                                                      break;
+                                                    case 'SURAT KELAHIRAN':
+                                                      // print('edit surat kelahiran');
+                                                      context.goNamed('edit-surat-kelahiran', params: {'suratId': widget.id, 'id': widget.id});
+                                                      break;
+                                                    case 'SURAT NIKAH':
+                                                      // print('edit surat nikah');
+                                                      context.goNamed('edit-surat-nikah', params: {'suratId': widget.id, 'id': widget.id});
+                                                      break;
+                                                    default:
+                                                  }
+                                                },
+                                                child: Text(
+                                                  'Edit Data Surat',
+                                                  style: whiteTextStyle.copyWith(
+                                                    fontSize: 12,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    )
+                                  : const SizedBox()
+                              : const SizedBox()
                           : const SizedBox(),
                       SizedBox(
                         height: defaultmargin,

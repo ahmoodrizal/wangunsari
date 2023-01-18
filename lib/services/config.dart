@@ -1,5 +1,7 @@
-// Auth
+// Base URL
 const baseUrl = 'https://suratdesa.satucinta.com/api';
+
+// Auth
 const loginUrl = '$baseUrl/login';
 const logoutUrl = '$baseUrl/logout';
 const userDetailUrl = '$baseUrl/user';
@@ -13,14 +15,17 @@ const batalkanSuratUrl = '$baseUrl/penduduk/surat/batalkan';
 // Pengajuan Surat
 const submitSuratDomisiliUrl = '$baseUrl/penduduk/surat/domisili/simpan';
 const submitSuratKeteranganUrl = '$baseUrl/penduduk/surat/keterangan/simpan';
+const submitSuratKelahiranUrl = '$baseUrl/penduduk/surat/kelahiran/simpan';
 
 // Detail Surat
 const detailDomisiliUrl = '$baseUrl/penduduk/surat/domisili/detail?surat_id=';
 const detailKeteranganUrl = '$baseUrl/penduduk/surat/keterangan/detail?surat_id=';
+const detailKelahiranUrl = '$baseUrl/penduduk/surat/kelahiran/detail?surat_id=';
 
 // Perbaiki Surat
 const perbaikiDomisiliUrl = '$baseUrl/penduduk/surat/domisili/perbaiki';
 const perbaikiKeteranganUrl = '$baseUrl/penduduk/surat/keterangan/perbaiki';
+const perbaikiKelahiranUrl = '$baseUrl/penduduk/surat/kelahiran/perbaiki';
 
 // Error Message
 const serverError = 'Server Error';
