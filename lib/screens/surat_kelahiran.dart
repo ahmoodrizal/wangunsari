@@ -1,7 +1,7 @@
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:wangunsari/components/alert_card.dart';
 import 'package:wangunsari/components/clear_form_field.dart';
-import 'package:wangunsari/components/form_field.dart';
 import 'package:wangunsari/models/api_response.dart';
 import 'package:wangunsari/services/config.dart';
 import 'package:wangunsari/services/mail.dart';
@@ -189,7 +189,39 @@ class _SuratKelahiranState extends State<SuratKelahiran> {
                   ),
                 ),
                 ClearMailField(title: 'Waktu Lahir', type: TextInputType.text, controller: waktuField),
-                ClearMailField(title: 'Jenis Kelamin', type: TextInputType.text, controller: jenisKelaminField),
+                DropdownSearch<String>(
+                  popupProps: const PopupProps.menu(
+                    showSelectedItems: true,
+                  ),
+                  items: const [
+                    'LAKI-LAKI',
+                    'PEREMPUAN',
+                  ],
+                  dropdownDecoratorProps: const DropDownDecoratorProps(
+                    dropdownSearchDecoration: InputDecoration(
+                      labelText: "Jenis Kelamin",
+                      hintText: "jenis kelamin",
+                    ),
+                  ),
+                  onChanged: (value) {
+                    switch (value) {
+                      case 'LAKI-LAKI':
+                        jenisKelaminField.text = 'LAKI-LAKI';
+                        break;
+                      case 'PEREMPUAN':
+                        jenisKelaminField.text = 'PEREMPUAN';
+                        break;
+                      default:
+                        // print('default');
+                        break;
+                    }
+                    // print(jenisSuratField.text);
+                  },
+                  selectedItem: "LAKI-LAKI",
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
                 ClearMailField(title: 'Berat Anak - gram', type: TextInputType.text, controller: weightField),
                 ClearMailField(title: 'Tinggi Anak - cm', type: TextInputType.text, controller: longField),
                 ClearMailField(title: 'Anak ke - ', type: TextInputType.text, controller: kidsField),

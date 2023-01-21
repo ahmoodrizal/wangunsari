@@ -16,16 +16,19 @@ const batalkanSuratUrl = '$baseUrl/penduduk/surat/batalkan';
 const submitSuratDomisiliUrl = '$baseUrl/penduduk/surat/domisili/simpan';
 const submitSuratKeteranganUrl = '$baseUrl/penduduk/surat/keterangan/simpan';
 const submitSuratKelahiranUrl = '$baseUrl/penduduk/surat/kelahiran/simpan';
+const submitSuratNikahUrl = '$baseUrl/penduduk/surat/nikah/simpan';
 
 // Detail Surat
 const detailDomisiliUrl = '$baseUrl/penduduk/surat/domisili/detail?surat_id=';
 const detailKeteranganUrl = '$baseUrl/penduduk/surat/keterangan/detail?surat_id=';
 const detailKelahiranUrl = '$baseUrl/penduduk/surat/kelahiran/detail?surat_id=';
+const detailNikahUrl = '$baseUrl/penduduk/surat/nikah/detail?surat_id=';
 
 // Perbaiki Surat
 const perbaikiDomisiliUrl = '$baseUrl/penduduk/surat/domisili/perbaiki';
 const perbaikiKeteranganUrl = '$baseUrl/penduduk/surat/keterangan/perbaiki';
 const perbaikiKelahiranUrl = '$baseUrl/penduduk/surat/kelahiran/perbaiki';
+const perbaikiNikahUrl = '$baseUrl/penduduk/surat/nikah/perbaiki';
 
 // Error Message
 const serverError = 'Server Error';
