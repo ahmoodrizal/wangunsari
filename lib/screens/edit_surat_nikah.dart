@@ -84,6 +84,8 @@ class _EditSuratNikahState extends State<EditSuratNikah> {
       setState(() {
         nikahDetail = response.data as MailNikahDetailService;
         loading = false;
+        // calonAField.text = nikahDetail!.suratBody!.anakJenisKelamin ?? '';
+        // calonBField.text = nikahDetail!.suratBody!.calonJenisKelamin ?? '';
         suratIdField.text = widget.suratId;
         suratDetailField.text = nikahDetail!.suratBody!.id.toString();
         rtField.text = nikahDetail!.rt!.nomor ?? '';

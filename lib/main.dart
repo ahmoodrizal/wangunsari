@@ -86,9 +86,9 @@ class MyApp extends StatelessWidget {
                 builder: (context, state) => const AdminRTArea(),
                 routes: [
                   GoRoute(
-                    path: 'review-rt-surat-keterangan',
+                    path: 'review-rt-surat-keterangan/:id',
                     name: 'review-rt-surat-keterangan',
-                    builder: (context, state) => const ReviewSuratKeterangan(),
+                    builder: (context, state) => ReviewSuratKeterangan(id: state.params["id"]!),
                   ),
                   GoRoute(
                     path: 'review-rt-surat-domisili/:id',
@@ -96,14 +96,14 @@ class MyApp extends StatelessWidget {
                     builder: (context, state) => ReviewSuratKeteranganDomisili(id: state.params["id"]!),
                   ),
                   GoRoute(
-                    path: 'review-rt-surat-kelahiran',
+                    path: 'review-rt-surat-kelahiran/:id',
                     name: 'review-rt-surat-kelahiran',
-                    builder: (context, state) => const ReviewSuratKelahiran(),
+                    builder: (context, state) => ReviewSuratKelahiran(id: state.params["id"]!),
                   ),
                   GoRoute(
-                    path: 'review-rt-surat-nikah',
+                    path: 'review-rt-surat-nikah/:id',
                     name: 'review-rt-surat-nikah',
-                    builder: (context, state) => const ReviewSuratNikah(),
+                    builder: (context, state) => ReviewSuratNikah(id: state.params["id"]!),
                   ),
                 ],
               ),
@@ -113,9 +113,9 @@ class MyApp extends StatelessWidget {
                 builder: (context, state) => const AdminRWArea(),
                 routes: [
                   GoRoute(
-                    path: 'review-rw-surat-keterangan',
+                    path: 'review-rw-surat-keterangan/:id',
                     name: 'review-rw-surat-keterangan',
-                    builder: (context, state) => const ReviewSuratKeterangan(),
+                    builder: (context, state) => ReviewSuratKeterangan(id: state.params["id"]!),
                   ),
                   GoRoute(
                     path: 'review-rw-surat-domisili/:id',
@@ -123,14 +123,14 @@ class MyApp extends StatelessWidget {
                     builder: (context, state) => ReviewSuratKeteranganDomisili(id: state.params["id"]!),
                   ),
                   GoRoute(
-                    path: 'review-rw-surat-kelahiran',
+                    path: 'review-rw-surat-kelahiran/:id',
                     name: 'review-rw-surat-kelahiran',
-                    builder: (context, state) => const ReviewSuratKelahiran(),
+                    builder: (context, state) => ReviewSuratKelahiran(id: state.params["id"]!),
                   ),
                   GoRoute(
-                    path: 'review-rw-surat-nikah',
+                    path: 'review-rw-surat-nikah/:id',
                     name: 'review-rw-surat-nikah',
-                    builder: (context, state) => const ReviewSuratNikah(),
+                    builder: (context, state) => ReviewSuratNikah(id: state.params["id"]!),
                   ),
                 ],
               ),

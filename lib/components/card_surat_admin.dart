@@ -30,7 +30,7 @@ class CardSuratAdmin extends StatelessWidget {
       onTap: () {
         switch (title) {
           case 'SURAT KETERANGAN':
-            context.goNamed('review-rt-surat-keterangan');
+            context.goNamed('review-rt-surat-keterangan', params: {'id': id});
             // print('review surat keterangan');
             break;
           case 'SURAT DOMISILI':
@@ -38,11 +38,11 @@ class CardSuratAdmin extends StatelessWidget {
             // print('review surat domisili');
             break;
           case 'SURAT KELAHIRAN':
-            context.goNamed('review-rt-surat-kelahiran');
+            context.goNamed('review-rt-surat-kelahiran', params: {'id': id});
             // print('review surat kelahiran');
             break;
           case 'SURAT NIKAH':
-            context.goNamed('review-rt-surat-nikah');
+            context.goNamed('review-rt-surat-nikah', params: {'id': id});
             // print('review surat nikah');
             break;
           default:
