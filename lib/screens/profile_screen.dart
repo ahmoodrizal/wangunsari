@@ -17,19 +17,19 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   UserService? user;
   bool loading = true;
-  // late List<Roles> roles = [];
+  late List<Roles> roles = [];
 
   void getUser() async {
     ApiResponse response = await getUserDetail();
     if (response.error == null) {
       setState(() {
         user = response.data as UserService;
-        // List userRoles = user!.data!.user!.roles!;
-        // for (var element in userRoles) {
-        //   roles.add(element);
-        // }
+        List userRoles = user!.data!.user!.roles!;
+        for (var element in userRoles) {
+          roles.add(element);
+        }
         loading = false;
-        // print(roles[0].name);
+        // print(roles[1].name);
       });
     } else if (response.error == unauthorized) {
       logout().then((value) => context.goNamed('login'));
@@ -139,6 +139,39 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 const SizedBox(
                   height: 40,
+                ),
+                roles.length > 1
+                    ? GestureDetector(
+                        onTap: () {
+                          switch (roles[1].name) {
+                            case 'Rukun Tetangga':
+                              context.goNamed('admin-rt-area');
+                              break;
+                            case 'Rukun Warga':
+                              context.goNamed('admin-rw-area');
+                              break;
+                            default:
+                          }
+                          // print('ke menu admin area');
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Cek daftar pengajuan surat',
+                              style: darkTextStyle.copyWith(fontSize: 16),
+                            ),
+                            Icon(
+                              Icons.mail_outline_rounded,
+                              size: 26,
+                              color: primaryColor,
+                            ),
+                          ],
+                        ),
+                      )
+                    : const SizedBox(),
+                SizedBox(
+                  height: defaultmargin,
                 ),
                 GestureDetector(
                   onTap: () {

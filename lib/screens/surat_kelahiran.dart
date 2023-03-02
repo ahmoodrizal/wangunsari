@@ -142,7 +142,7 @@ class _SuratKelahiranState extends State<SuratKelahiran> {
                 const SizedBox(
                   height: 15,
                 ),
-                ClearMailField(title: 'Nama Anak', type: TextInputType.number, controller: nameField),
+                ClearMailField(title: 'Nama Anak', type: TextInputType.text, controller: nameField),
                 ClearMailField(title: 'Tempat Lahir', type: TextInputType.text, controller: tempatLahirField),
                 TextFormField(
                   readOnly: true,
@@ -241,7 +241,7 @@ class _SuratKelahiranState extends State<SuratKelahiran> {
                   height: 15,
                 ),
                 ClearMailField(title: 'NIK Ayah', type: TextInputType.number, controller: ayahNikField),
-                ClearMailField(title: 'Nama Ayah', type: TextInputType.number, controller: ayahNameField),
+                ClearMailField(title: 'Nama Ayah', type: TextInputType.text, controller: ayahNameField),
                 ClearMailField(title: 'Tempat Lahir Ayah', type: TextInputType.text, controller: ayahTempatLahirField),
                 TextFormField(
                   readOnly: true,
@@ -301,7 +301,7 @@ class _SuratKelahiranState extends State<SuratKelahiran> {
                   ),
                 ),
                 ClearMailField(title: 'NIK Ibu', type: TextInputType.number, controller: ibuNikField),
-                ClearMailField(title: 'Nama Ibu', type: TextInputType.number, controller: ibuNameField),
+                ClearMailField(title: 'Nama Ibu', type: TextInputType.text, controller: ibuNameField),
                 ClearMailField(title: 'Tempat Lahir Ibu', type: TextInputType.text, controller: ibuTempatLahirField),
                 TextFormField(
                   readOnly: true,

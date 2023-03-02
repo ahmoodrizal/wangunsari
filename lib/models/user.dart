@@ -193,7 +193,7 @@ class Penduduk {
   String? jenisKelamin;
   String? tempatLahir;
   String? tanggalLahir;
-  Null? tanggalMati;
+  String? tanggalMati;
   String? agama;
   String? pendidikan;
   String? pekerjaan;
@@ -203,14 +203,14 @@ class Penduduk {
   String? hubDgnKkUrutan;
   String? wargaNegara;
   String? negaraNama;
-  Null? noPassport;
-  Null? kitasKitap;
-  Null? fotoKtp;
+  String? noPassport;
+  String? kitasKitap;
+  String? fotoKtp;
   String? alamat;
   String? pendudukAda;
   String? createdAt;
   String? updatedAt;
-  Null? updatedBy;
+  String? updatedBy;
   String? createdBy;
   String? tanggalLahirText;
   Rt? rt;
@@ -325,7 +325,7 @@ class Rt {
   String? rwId;
   String? createdAt;
   String? updatedAt;
-  Null? updatedBy;
+  String? updatedBy;
   String? createdBy;
 
   Rt({this.id, this.nomor, this.namaDaerah, this.rwId, this.createdAt, this.updatedAt, this.updatedBy, this.createdBy});
@@ -360,7 +360,7 @@ class Rw {
   String? nomor;
   String? createdAt;
   String? updatedAt;
-  Null? updatedBy;
+  String? updatedBy;
   String? createdBy;
 
   Rw({this.id, this.nomor, this.createdAt, this.updatedAt, this.updatedBy, this.createdBy});
