@@ -12,7 +12,6 @@ Aplikasi berikut digunakan untuk mempermudah proses pengajuan surat
 - [x] Pengajuan dan Revisi Surat Keterangan Lahir
 - [x] Pengajuan dan Revisi Surat Pengantar Nikah
 - [x] Terima atau Tolak Surat Oleh RT
-- [] Terima atau Tolak Surat Oleh RW
 
 This project is a starting point for a Flutter application.
 
