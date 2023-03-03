@@ -84,8 +84,6 @@ class _EditSuratNikahState extends State<EditSuratNikah> {
       setState(() {
         nikahDetail = response.data as MailNikahDetailService;
         loading = false;
-        // calonAField.text = nikahDetail!.suratBody!.anakJenisKelamin ?? '';
-        // calonBField.text = nikahDetail!.suratBody!.calonJenisKelamin ?? '';
         suratIdField.text = widget.suratId;
         suratDetailField.text = nikahDetail!.suratBody!.id.toString();
         rtField.text = nikahDetail!.rt!.nomor ?? '';
@@ -627,7 +625,7 @@ class _EditSuratNikahState extends State<EditSuratNikah> {
                 const SizedBox(
                   height: 15,
                 ),
-                ClearMailField(title: 'Waktu Acara', type: TextInputType.text, controller: waktuAcaraField)
+                ClearMailField(title: 'Waktu Acara (contoh 08:00)', type: TextInputType.text, controller: waktuAcaraField)
               ],
             ),
           ),

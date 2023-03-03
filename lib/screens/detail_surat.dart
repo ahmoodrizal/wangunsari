@@ -291,7 +291,7 @@ class _DetailSuratState extends State<DetailSurat> {
                       ),
                       ListView.builder(
                         shrinkWrap: true,
-                        itemCount: tracks.length,
+                        itemCount: 5,
                         itemBuilder: (context, index) {
                           Trackings data = tracks[index];
                           return TrackingItem(
