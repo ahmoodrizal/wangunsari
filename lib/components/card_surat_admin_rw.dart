@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wangunsari/theme.dart';
 import 'package:go_router/go_router.dart';
 
-class CardSuratAdmin extends StatelessWidget {
+class CardSuratAdminRW extends StatelessWidget {
   final String title;
   final String date;
   final String status;
@@ -12,7 +12,7 @@ class CardSuratAdmin extends StatelessWidget {
   final String tipe;
   final String id;
 
-  const CardSuratAdmin({
+  const CardSuratAdminRW({
     super.key,
     required this.title,
     required this.date,
@@ -30,19 +30,19 @@ class CardSuratAdmin extends StatelessWidget {
       onTap: () {
         switch (title) {
           case 'SURAT KETERANGAN':
-            context.goNamed('review-rt-surat-keterangan', params: {'id': id});
+            context.goNamed('review-rw-surat-keterangan', params: {'id': id});
             // print('review surat keterangan');
             break;
           case 'SURAT DOMISILI':
-            context.goNamed('review-rt-surat-domisili', params: {'id': id});
+            context.goNamed('review-rw-surat-domisili', params: {'id': id, 'tipe': tipe});
             // print('review surat domisili');
             break;
           case 'SURAT KELAHIRAN':
-            context.goNamed('review-rt-surat-kelahiran', params: {'id': id});
+            context.goNamed('review-rw-surat-kelahiran', params: {'id': id});
             // print('review surat kelahiran');
             break;
           case 'SURAT NIKAH':
-            context.goNamed('review-rt-surat-nikah', params: {'id': id});
+            context.goNamed('review-rw-surat-nikah', params: {'id': id});
             // print('review surat nikah');
             break;
           default:

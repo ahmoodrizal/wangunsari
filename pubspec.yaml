@@ -41,6 +41,7 @@ dependencies:
   shared_preferences: 2.0.6
   image_picker: 0.7.5+4
   dropdown_search: 5.0.0
+  flutter_multi_formatter: 2.10.2
 
 dev_dependencies:
   flutter_test:

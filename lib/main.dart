@@ -91,9 +91,12 @@ class MyApp extends StatelessWidget {
                     builder: (context, state) => ReviewSuratKeterangan(id: state.params["id"]!),
                   ),
                   GoRoute(
-                    path: 'review-rt-surat-domisili/:id',
+                    path: 'review-rt-surat-domisili/:tipe/:id',
                     name: 'review-rt-surat-domisili',
-                    builder: (context, state) => ReviewSuratKeteranganDomisili(id: state.params["id"]!),
+                    builder: (context, state) => ReviewSuratKeteranganDomisili(
+                      id: state.params["id"]!,
+                      tipe: state.params['tipe']!,
+                    ),
                   ),
                   GoRoute(
                     path: 'review-rt-surat-kelahiran/:id',
@@ -118,9 +121,12 @@ class MyApp extends StatelessWidget {
                     builder: (context, state) => ReviewSuratKeterangan(id: state.params["id"]!),
                   ),
                   GoRoute(
-                    path: 'review-rw-surat-domisili/:id',
+                    path: 'review-rw-surat-domisili/:tipe/:id',
                     name: 'review-rw-surat-domisili',
-                    builder: (context, state) => ReviewSuratKeteranganDomisili(id: state.params["id"]!),
+                    builder: (context, state) => ReviewSuratKeteranganDomisili(
+                      id: state.params["id"]!,
+                      tipe: state.params['tipe']!,
+                    ),
                   ),
                   GoRoute(
                     path: 'review-rw-surat-kelahiran/:id',

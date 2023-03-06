@@ -344,6 +344,8 @@ class _ReviewSuratKeteranganState extends State<ReviewSuratKeterangan> {
                     ),
                     LineDetail(title: 'No Resi', content: keteranganDetail!.surat!.noResi ?? 'Error'),
                     LineDetail(title: 'Tanggal Pengajuan', content: keteranganDetail!.surat!.tanggal ?? 'Error'),
+                    const SizedBox(height: 15),
+                    const LineDetail(title: 'Data Penduduk', content: ''),
                     LineDetail(title: 'NIK Penduduk', content: keteranganDetail!.suratBody!.nik ?? 'Error'),
                     LineDetail(title: 'Nama Penduduk', content: keteranganDetail!.suratBody!.nama ?? 'Error'),
                     LineDetail(title: 'Tempat Lahir', content: keteranganDetail!.suratBody!.tempatLahir ?? 'Error'),

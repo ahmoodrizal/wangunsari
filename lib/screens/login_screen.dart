@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_multi_formatter/formatters/masked_input_formatter.dart';
+import 'package:wangunsari/components/clear_form_field.dart';
 import 'package:wangunsari/models/api_response.dart';
 import 'package:wangunsari/services/user.dart';
 import 'package:wangunsari/theme.dart';
@@ -21,7 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController passwordField = TextEditingController();
 
   void _loginUser() async {
-    ApiResponse response = await login(nikField.text, passwordField.text);
+    ApiResponse response = await login(nikField.text.replaceAll('-', ''), passwordField.text);
     // success login and fetching API
     if (response.error == null) {
       _saveTokenAndRedirectToHome(response.data as UserService);
@@ -83,7 +85,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 80,
                   ),
                   TextFormField(
-                    keyboardType: TextInputType.number,
+                    keyboardType: TextInputType.phone,
+                    inputFormatters: [MaskedInputFormatter('0000-0000-0000-0000')],
                     controller: nikField,
                     validator: (value) => value!.isEmpty ? 'NIK tidak boleh kosong' : null,
                     style: darkTextStyle.copyWith(

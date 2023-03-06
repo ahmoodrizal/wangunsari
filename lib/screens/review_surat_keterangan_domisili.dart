@@ -4,6 +4,7 @@ import 'package:wangunsari/components/clear_form_field.dart';
 import 'package:wangunsari/components/detail_line.dart';
 import 'package:wangunsari/models/api_response.dart';
 import 'package:wangunsari/services/admin_rt.dart';
+import 'package:wangunsari/services/admin_rw.dart';
 import 'package:wangunsari/services/config.dart';
 import 'package:wangunsari/services/mail.dart';
 import 'package:wangunsari/services/user.dart';
@@ -12,7 +13,8 @@ import 'package:wangunsari/models/mail_domisili_detail.dart';
 
 class ReviewSuratKeteranganDomisili extends StatefulWidget {
   final String id;
-  const ReviewSuratKeteranganDomisili({super.key, required this.id});
+  final String tipe;
+  const ReviewSuratKeteranganDomisili({super.key, required this.id, required this.tipe});
 
   @override
   State<ReviewSuratKeteranganDomisili> createState() => _ReviewSuratKeteranganDomisiliState();
@@ -24,7 +26,9 @@ class _ReviewSuratKeteranganDomisiliState extends State<ReviewSuratKeteranganDom
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
   TextEditingController infoField = TextEditingController();
   TextEditingController notefield = TextEditingController();
+  TextEditingController regField = TextEditingController();
 
+// review isi surat
   void _getDomisiliDetail() async {
     ApiResponse response = await domisiliMailDetail(widget.id);
     if (response.error == null) {
@@ -43,6 +47,7 @@ class _ReviewSuratKeteranganDomisiliState extends State<ReviewSuratKeteranganDom
     }
   }
 
+// fungis terima surat oleh rt
   void _approveRTMailFunc() async {
     ApiResponse response = await approveRTMails(widget.id, infoField.text, notefield.text);
     if (response.error == null) {
@@ -73,6 +78,38 @@ class _ReviewSuratKeteranganDomisiliState extends State<ReviewSuratKeteranganDom
     }
   }
 
+// fungis terima surat oleh rw
+  void _approveRWMailFunc() async {
+    ApiResponse response = await approveRWMails(widget.id, infoField.text, notefield.text, regField.text);
+    if (response.error == null) {
+      showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(
+            'Surat Berhasil Disetujui',
+            style: darkTextStyle,
+          ),
+          actions: [
+            TextButton(
+              onPressed: (() => context.goNamed('admin-rw-area')),
+              child: Text('Ok', style: darkTextStyle),
+            ),
+          ],
+        ),
+      );
+    } else if (response.error == unauthorized) {
+      logout().then((value) => context.goNamed('login'));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('${response.error}'),
+        ),
+      );
+    }
+  }
+
+// fungis tolak surat oleh rt
   void _rejectRTMailFunc() async {
     ApiResponse response = await rejectRTMails(widget.id, infoField.text, notefield.text);
     if (response.error == null) {
@@ -103,6 +140,38 @@ class _ReviewSuratKeteranganDomisiliState extends State<ReviewSuratKeteranganDom
     }
   }
 
+// fungis tolak surat oleh rw
+  void _rejectRWMailFunc() async {
+    ApiResponse response = await rejectRWMails(widget.id, infoField.text, notefield.text);
+    if (response.error == null) {
+      showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(
+            'Surat Berhasil Ditolak',
+            style: darkTextStyle,
+          ),
+          actions: [
+            TextButton(
+              onPressed: (() => context.goNamed('admin-rw-area')),
+              child: Text('Ok', style: darkTextStyle),
+            ),
+          ],
+        ),
+      );
+    } else if (response.error == unauthorized) {
+      logout().then((value) => context.goNamed('login'));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('${response.error}'),
+        ),
+      );
+    }
+  }
+
+// fungsi form persetujuan
   void _showApproveModal() {
     showModalBottomSheet(
       isScrollControlled: true,
@@ -138,6 +207,9 @@ class _ReviewSuratKeteranganDomisiliState extends State<ReviewSuratKeteranganDom
                   children: [
                     ClearMailField(title: 'Keterangan', type: TextInputType.text, controller: infoField),
                     ClearMailField(title: 'Catatan', type: TextInputType.text, controller: notefield),
+                    widget.tipe == 'rw'
+                        ? ClearMailField(title: 'Nomor Registrasi', type: TextInputType.text, controller: regField)
+                        : const SizedBox(),
                     TextButton(
                       style: TextButton.styleFrom(
                         padding: const EdgeInsets.all(8),
@@ -147,7 +219,19 @@ class _ReviewSuratKeteranganDomisiliState extends State<ReviewSuratKeteranganDom
                       onPressed: () {
                         if (formkey.currentState!.validate()) {
                           Navigator.pop(context);
-                          _approveRTMailFunc();
+                          switch (widget.tipe) {
+                            case 'rt':
+                              _approveRTMailFunc();
+                              // print('disetujui rt');
+                              break;
+                            case 'rw':
+                              _approveRWMailFunc();
+                              // print('disetujui rw');
+                              break;
+                            default:
+                              print('error approve system');
+                          }
+                          // _approveRTMailFunc();
                           // print('Surat Disetujui RT');
                         }
                       },
@@ -166,6 +250,7 @@ class _ReviewSuratKeteranganDomisiliState extends State<ReviewSuratKeteranganDom
     );
   }
 
+// fungsi form penolakan
   void _showRejectModal() {
     showModalBottomSheet(
       isScrollControlled: true,
@@ -210,7 +295,19 @@ class _ReviewSuratKeteranganDomisiliState extends State<ReviewSuratKeteranganDom
                       onPressed: () {
                         if (formkey.currentState!.validate()) {
                           Navigator.pop(context);
-                          _rejectRTMailFunc();
+                          switch (widget.tipe) {
+                            case 'rt':
+                              _rejectRTMailFunc();
+                              // print('ditolak rt');
+                              break;
+                            case 'rw':
+                              _rejectRWMailFunc();
+                              // print('ditolak rw');
+                              break;
+                            default:
+                              print('error approve system');
+                          }
+                          // _rejectRTMailFunc();
                           // print('Surat Ditolak RT');
                         }
                       },
@@ -326,6 +423,8 @@ class _ReviewSuratKeteranganDomisiliState extends State<ReviewSuratKeteranganDom
                     ),
                     LineDetail(title: 'No Resi', content: domisiliDetail!.surat!.noResi ?? 'Error'),
                     LineDetail(title: 'Tanggal Pengajuan', content: domisiliDetail!.surat!.tanggal ?? 'Error'),
+                    const SizedBox(height: 15),
+                    const LineDetail(title: 'Data Penduduk', content: ''),
                     LineDetail(title: 'NIK Penduduk', content: domisiliDetail!.suratBody!.nik ?? 'Error'),
                     LineDetail(title: 'Nama Penduduk', content: domisiliDetail!.suratBody!.nama ?? 'Error'),
                     LineDetail(title: 'Tempat Lahir', content: domisiliDetail!.suratBody!.tempatLahir ?? 'Error'),

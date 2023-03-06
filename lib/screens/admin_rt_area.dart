@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:wangunsari/components/card_surat_admin.dart';
+import 'package:wangunsari/components/card_surat_admin_rt.dart';
 import 'package:wangunsari/models/api_response.dart';
 import 'package:wangunsari/models/surat.dart';
 import 'package:wangunsari/services/admin_rt.dart';
@@ -75,7 +75,7 @@ class _AdminRTAreaState extends State<AdminRTArea> {
                     itemCount: _getAdminMails.length,
                     itemBuilder: (context, index) {
                       Surats surat = _getAdminMails[index];
-                      return CardSuratAdmin(
+                      return CardSuratAdminRT(
                         tipe: 'rt',
                         name: surat.namaPenduduk!,
                         nik: surat.nikPenduduk!,
