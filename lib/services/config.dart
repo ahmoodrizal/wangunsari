@@ -5,6 +5,7 @@ const baseUrl = 'https://suratdesa.satucinta.com/api';
 const loginUrl = '$baseUrl/login';
 const logoutUrl = '$baseUrl/logout';
 const userDetailUrl = '$baseUrl/user';
+const ubahPassword = '$baseUrl/change_password';
 
 // Utility
 const getMailsUrl =

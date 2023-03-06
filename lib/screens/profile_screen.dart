@@ -120,6 +120,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     const SizedBox(
                                       height: 5,
                                     ),
+                                    roles.length > 1
+                                        ? Text(
+                                            roles[1].name ?? 'Error',
+                                            style: darkTextStyle.copyWith(
+                                              fontSize: 14,
+                                              fontWeight: medium,
+                                            ),
+                                          )
+                                        : Text(
+                                            'Penduduk',
+                                            style: darkTextStyle.copyWith(
+                                              fontSize: 14,
+                                              fontWeight: medium,
+                                            ),
+                                          ),
                                   ],
                                 ),
                               )
@@ -170,6 +185,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       )
                     : const SizedBox(),
+                SizedBox(
+                  height: defaultmargin,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    context.goNamed('ganti-password');
+                    // print('halaman ganti password');
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Ubah Password',
+                        style: darkTextStyle.copyWith(fontSize: 16),
+                      ),
+                      const Icon(Icons.arrow_right_sharp, size: 26),
+                    ],
+                  ),
+                ),
                 SizedBox(
                   height: defaultmargin,
                 ),

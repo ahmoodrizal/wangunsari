@@ -92,3 +92,46 @@ Future<bool> logout() async {
   SharedPreferences pref = await SharedPreferences.getInstance();
   return await pref.remove('token');
 }
+
+// Ganti Password
+Future<ApiResponse> changePassword(String oldPass, String newPass) async {
+  ApiResponse apiResponse = ApiResponse();
+  try {
+    String token = await getToken();
+    final response = await http.post(
+      Uri.parse(ubahPassword),
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      body: {
+        'old_password': oldPass,
+        'password': newPass,
+      },
+    );
+    // print(response.statusCode);
+
+    switch (response.statusCode) {
+      case 200:
+        apiResponse.data = jsonDecode(response.body)['meta'];
+        break;
+      case 422:
+        final errors = jsonDecode(response.body)['errors'];
+        apiResponse.error = errors[errors.key.elementAt(0)][0];
+        break;
+      case 403:
+        apiResponse.error = jsonDecode(response.body)['message'];
+        break;
+      case 500:
+        apiResponse.error = jsonDecode(response.body)['meta']['message'];
+        break;
+      default:
+        apiResponse.error = jsonDecode(response.body)['meta']['message'];
+        break;
+    }
+  } catch (e) {
+    apiResponse.error = e.toString();
+  }
+
+  return apiResponse;
+}

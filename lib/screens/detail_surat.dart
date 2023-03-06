@@ -178,11 +178,23 @@ class _DetailSuratState extends State<DetailSurat> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Detail ${detail!.surat!.jenis}',
-                        style: darkTextStyle.copyWith(
-                          fontSize: 18,
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Detail ${detail!.surat!.jenis}',
+                            style: darkTextStyle.copyWith(
+                              fontSize: 18,
+                            ),
+                          ),
+                          Text(
+                            'Lihat Surat',
+                            style: darkTextStyle.copyWith(
+                              color: Colors.indigoAccent,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
                       ),
                       SizedBox(
                         height: defaultmargin,
@@ -291,7 +303,7 @@ class _DetailSuratState extends State<DetailSurat> {
                       ),
                       ListView.builder(
                         shrinkWrap: true,
-                        itemCount: 5,
+                        itemCount: tracks.length >= 5 ? 5 : tracks.length,
                         itemBuilder: (context, index) {
                           Trackings data = tracks[index];
                           return TrackingItem(

@@ -7,6 +7,7 @@ import 'package:wangunsari/screens/edit_surat_domisili.dart';
 import 'package:wangunsari/screens/edit_surat_kelahiran.dart';
 import 'package:wangunsari/screens/edit_surat_keterangan.dart';
 import 'package:wangunsari/screens/edit_surat_nikah.dart';
+import 'package:wangunsari/screens/ganti_password.dart';
 import 'package:wangunsari/screens/home_screen.dart';
 import 'package:wangunsari/screens/login_screen.dart';
 import 'package:wangunsari/screens/profile_screen.dart';
@@ -80,6 +81,11 @@ class MyApp extends StatelessWidget {
             name: 'profile',
             builder: (context, state) => const ProfileScreen(),
             routes: [
+              GoRoute(
+                path: 'ganti-password',
+                name: 'ganti-password',
+                builder: (context, state) => const GantiPassword(),
+              ),
               GoRoute(
                 path: 'admin-rt-area',
                 name: 'admin-rt-area',
