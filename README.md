@@ -7,6 +7,10 @@ MBKM Universitas Sangga Buana YPKP Bandung 2022
 Aplikasi berikut digunakan untuk mempermudah proses pengajuan surat
 
 - [x] Login Penduduk
+- [x] Cek Data Diri
+- [x] Ubah Password
+- [x] Tracking pengajuan surat
+- [x] Detail surat
 - [x] Pengajuan dan Revisi Surat Keterangan Domisili
 - [x] Pengajuan dan Revisi Surat Keterangan
 - [x] Pengajuan dan Revisi Surat Keterangan Lahir
