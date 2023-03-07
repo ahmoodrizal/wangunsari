@@ -34,7 +34,7 @@ Future<ApiResponse> getMails() async {
         break;
     }
   } catch (e) {
-    apiResponse.error = 'Fetch all mails fail - something went wrong';
+    apiResponse.error = 'Gagal mengambil daftar data surat pengajuan penduduk';
   }
   return apiResponse;
 }
@@ -69,7 +69,7 @@ Future<ApiResponse> mailDetail(String id) async {
         break;
     }
   } catch (e) {
-    apiResponse.error = 'Fetch detail mail fail - something went wrong';
+    apiResponse.error = 'Gagal mengambil detail data surat';
   }
   // print('$mailDetailUrl$id');
   return apiResponse;

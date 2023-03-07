@@ -32,7 +32,7 @@ Future<ApiResponse> getRWMails() async {
         break;
     }
   } catch (e) {
-    apiResponse.error = 'Fetch all RW mails fail - something went wrong';
+    apiResponse.error = 'Gagal mengambil daftar data surat pengajuan RW';
   }
   return apiResponse;
 }

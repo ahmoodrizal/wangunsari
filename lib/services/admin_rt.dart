@@ -32,7 +32,7 @@ Future<ApiResponse> getRTMails() async {
         break;
     }
   } catch (e) {
-    apiResponse.error = 'Fetch all RT mails fail - something went wrong';
+    apiResponse.error = 'Gagal mengambil daftar data surat pengajuan RT';
   }
   return apiResponse;
 }

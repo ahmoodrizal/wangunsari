@@ -130,7 +130,7 @@ Future<ApiResponse> changePassword(String oldPass, String newPass) async {
         break;
     }
   } catch (e) {
-    apiResponse.error = e.toString();
+    apiResponse.error = 'Proses Ubah Password Gagal';
   }
 
   return apiResponse;
