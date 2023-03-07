@@ -190,6 +190,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 GestureDetector(
                   onTap: () {
+                    context.goNamed('data-diri');
+                    // print('halaman data diri');
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Cek Data Diri',
+                        style: darkTextStyle.copyWith(fontSize: 16),
+                      ),
+                      const Icon(Icons.verified_user_outlined, size: 26),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: defaultmargin,
+                ),
+                GestureDetector(
+                  onTap: () {
                     context.goNamed('ganti-password');
                     // print('halaman ganti password');
                   },

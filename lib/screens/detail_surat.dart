@@ -190,7 +190,7 @@ class _DetailSuratState extends State<DetailSurat> {
                           Text(
                             'Lihat Surat',
                             style: darkTextStyle.copyWith(
-                              color: Colors.indigoAccent,
+                              color: whiteColor,
                               fontSize: 12,
                             ),
                           ),

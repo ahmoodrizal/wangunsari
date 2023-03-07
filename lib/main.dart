@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wangunsari/screens/admin_rt_area.dart';
 import 'package:wangunsari/screens/admin_rw_area.dart';
+import 'package:wangunsari/screens/data_diri.dart';
 import 'package:wangunsari/screens/detail_surat.dart';
 import 'package:wangunsari/screens/edit_surat_domisili.dart';
 import 'package:wangunsari/screens/edit_surat_kelahiran.dart';
@@ -81,6 +82,11 @@ class MyApp extends StatelessWidget {
             name: 'profile',
             builder: (context, state) => const ProfileScreen(),
             routes: [
+              GoRoute(
+                path: 'data-diri',
+                name: 'data-diri',
+                builder: (context, state) => const DataDiri(),
+              ),
               GoRoute(
                 path: 'ganti-password',
                 name: 'ganti-password',
